@@ -1,0 +1,30 @@
+refrences_websites
+# Node modules
+Client/node_modules/
+Server/node_modules/
+
+# Environment variables
+Client/.env
+Server/.env
+
+# Build output
+dist/
+
+# Environment variables
+.env
+.env.local
+.env.production
+.env.development
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor folders
+.vscode/
+.idea/
+
+# Cache
+.DS_Store
+*.log
