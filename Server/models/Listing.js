@@ -9,7 +9,8 @@ const listingSchema= mongoose.Schema({
     sharingType : {type : String, required : true},
     amenities : [String],
     rules: [String],
-    contactNumber : [String]
+    contactNumber : [String],
+    owner : { type: mongoose.Schema.type.ObjectId, ref : 'User', required: true}
 }, {timestamps : true });
 //timestamps : true will store createdAt and updatedAt times
 
