@@ -2,7 +2,7 @@ import Listing from '../models/Listing.js'
 
  export const getListing = async(req, res)=>{
     try{
-        const listings = await Listing.find();
+        const listings = await Listing.find().lean();
         res.json(listings);
     }
     catch(err){
@@ -67,7 +67,7 @@ export const deleteListing = async(req, res)=>{
 export const getMyListing = async(req, res)=>{
     try{
         const userId = req.user.userId;
-        let listings = await Listing.find({owner : userId});
+        let listings = await Listing.find({owner : userId}).lean();
         if(listings.lengths===0){
             return req.status(200).json({message : "You have not added any listing till now!"});
         }
