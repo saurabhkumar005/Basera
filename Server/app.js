@@ -1,9 +1,12 @@
-import express, { urlencoded } from 'express'
+import express from 'express'
 // import {cors} from 'cors'
 import dotenv from 'dotenv'
 import cors from "cors";
 import mongoose from 'mongoose'
-import listingRoutes from './routes/listing.js'
+import listingRoutes from './routes/listingRoute.js'
+import authRoutes from './routes/authRoutes.js'
+import userRoutes from './routes/userRoutes.js'
+
 dotenv.config();
 
 const app = express();
@@ -19,8 +22,8 @@ app.use(express.urlencoded({extended:true}));
 //we use api in route to separate and look different for backend urls from frontend url  
 //it's just an industry convention to use api in url to indicate it as a backend url(for data fetch and post)
 app.use('/api/listing',listingRoutes);
-
-
+app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
 
 // DB connection
 const connectDB = async function(){

@@ -1,0 +1,51 @@
+----------Error codes----------
+ //always send status code with errors, it helps in debugging errors in client side
+//500 -> internal server error(generic code for all types of backend error)
+201 -> created(i.e whatever you are trying to create is created)
+401 → Not logged in
+403 → Logged in but not authorized
+404 → Resource not found
+200 → Success
+
+404 Not Found -> Email doesn’t exist =>	“User not found”
+401 Unauthorized -> Not logged in
+400 Bad Request	-> Missing fields	-> “Please fill all fields”
+403 -> Forbidden -> Acess is forbidden to this page forr you
+500 -> Internal Server Error -> 
+
+favourites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Listing' }
+🎯 .populate() automatically replaces the ObjectIds with the real listing data from the referenced collection.
+
+
+
+/JWT secret geneartion
+1) Using openssl  : openssl rand -base64 32
+2) Using node CLI : node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
+
+
+//authMiddleware
+A request hits /api/listings
+Express runs verifyToken before the controller.
+If token is valid → proceeds to addListing().
+If token is missing/invalid → stops there and sends 401/403.
+
+
+
+
+//PUT vs PATCH Update API method
+
+// | Method    | Meaning                       | Usage                                                           |
+// | --------- | ----------------------------- | --------------------------------------------------------------- |
+// | **PUT**   | Replace the entire resource   | Used when you want to send all fields (complete object update). |
+// | **PATCH** | Update *part* of the resource | Used for small updates (like changing one or two fields).       |
+
+
+
+//ES6 export and import: named export and default export and import
+default  -> export default functionName;
+export default import -> import xyz from './pathTofile.js';
+
+named export -> export const function xyz(){};
+            or, export {functionName1, functionName2, ....};
+named import -> import {functionName1 , functionName2, ...} from './pathToFile.js';
+            or, import {functionName1 as xyz} from 'pathToFile.js';
