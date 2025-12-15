@@ -34,7 +34,7 @@ export default function Navbar() {
             {/* mobile menu */}
              {/* if mobile menu is open */}
             {isMenuOpen &&  <div className=" w-[200px]  rounded-xl border-y absolute top-20 right-3 inset-x bg-white border-t shadow-xl lg:hidden
-             transform transition-all duration-200 ease-in-out">
+             transform transition-all duration-200 ease-in-out z-10">
                 <nav className="flex flex-col   divide-y divide-gray-300">
                      <NavLink className="py-3 px-5 rounded-xl hover:bg-orange-100 hover:shadow-xl hover:text-[#E98234] ">Find Your Basera</NavLink>
                     <NavLink className="py-3 px-5 rounded-xl hover:bg-orange-100 hover:shadow-x hover:text-[#E98234] ">About</NavLink>
