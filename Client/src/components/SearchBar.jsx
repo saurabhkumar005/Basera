@@ -1,7 +1,7 @@
 import {Search} from 'lucide-react'
 export default function searchBar(){
     // USEs Deatils:  
-    // used on homepage front image search bar
+    // used on homepage front image search bar and listing page
     return (
         <div className=' h-12 w-[350px] md:w-[400px] border border-orange-400 rounded-full flex items-center bg-white  '>
                     <input type="text" className='w-full h-full outline-none px-5 bg-transparent text-gray-800 ' 

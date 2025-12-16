@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import Logo from '../assets/images/logo2.png'
 import {Menu, X} from 'lucide-react'
 import { useState } from "react";
+import ListingPage from "../pages/Listing"
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const handleToggle = ()=>{
@@ -16,7 +17,7 @@ export default function Navbar() {
 
             <div className="flex items-center justify-between  gap-5">
                 <div className=" lg:flex justify-evenly gap-8 hidden">
-                    <NavLink className="hover:text-[#E98234] ">Find Your Basera</NavLink>
+                    <NavLink to='/listing' className="hover:text-[#E98234] ">Find Your Basera</NavLink>
                     <NavLink className="hover:text-[#E98234] ">About</NavLink>
                     <NavLink className="hover:text-[#E98234] ">Contact</NavLink>
                 </div>
@@ -36,7 +37,7 @@ export default function Navbar() {
             {isMenuOpen &&  <div className=" w-[200px]  rounded-xl border-y absolute top-20 right-3 inset-x bg-white border-t shadow-xl lg:hidden
              transform transition-all duration-200 ease-in-out z-10">
                 <nav className="flex flex-col   divide-y divide-gray-300">
-                     <NavLink className="py-3 px-5 rounded-xl hover:bg-orange-100 hover:shadow-xl hover:text-[#E98234] ">Find Your Basera</NavLink>
+                     <NavLink to="/listing" className="py-3 px-5 rounded-xl hover:bg-orange-100 hover:shadow-xl hover:text-[#E98234] ">Find Your Basera</NavLink>
                     <NavLink className="py-3 px-5 rounded-xl hover:bg-orange-100 hover:shadow-x hover:text-[#E98234] ">About</NavLink>
                     <NavLink className="py-3 px-5 rounded-xl hover:bg-orange-100 hover:shadow-x hover:text-[#E98234] ">Contact</NavLink>
                     <NavLink className=" sm:hidden py-3 px-5 rounded-xl hover:bg-orange-100 hover:shadow-x hover:text-[#E98234] ">Add Your Listings</NavLink>
