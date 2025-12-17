@@ -22,7 +22,7 @@ export default function Navbar() {
                     <NavLink className="hover:text-[#E98234] ">Contact</NavLink>
                 </div>
                 <div className=" flex gap-5 items-center justify-end ">
-                    <NavLink className="hidden sm:flex rounded-4xl p-3 border text-white bg-[#E98234] hover:text-[#E98234] hover:bg-white">Add Your Listing</NavLink>
+                    <NavLink to="/listing/add" className="hidden sm:flex rounded-4xl p-3 border text-white bg-[#E98234] hover:text-[#E98234] hover:bg-white">Add Your Listing</NavLink>
                     <NavLink className="border rounded-4xl p-3 hover:bg-[#E98234] hover:text-white">Login/Register</NavLink>
                 </div>
             
@@ -40,7 +40,7 @@ export default function Navbar() {
                      <NavLink to="/listing" className="py-3 px-5 rounded-xl hover:bg-orange-100 hover:shadow-xl hover:text-[#E98234] ">Find Your Basera</NavLink>
                     <NavLink className="py-3 px-5 rounded-xl hover:bg-orange-100 hover:shadow-x hover:text-[#E98234] ">About</NavLink>
                     <NavLink className="py-3 px-5 rounded-xl hover:bg-orange-100 hover:shadow-x hover:text-[#E98234] ">Contact</NavLink>
-                    <NavLink className=" sm:hidden py-3 px-5 rounded-xl hover:bg-orange-100 hover:shadow-x hover:text-[#E98234] ">Add Your Listings</NavLink>
+                    <NavLink to="/listing/add" className=" sm:hidden py-3 px-5 rounded-xl hover:bg-orange-100 hover:shadow-x hover:text-[#E98234] ">Add Your Listings</NavLink>
                 </nav>
             </div>
             }

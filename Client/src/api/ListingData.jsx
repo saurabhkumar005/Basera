@@ -28,3 +28,27 @@ export const listings = [
 ];
 
 export default listings;
+
+import axios from 'axios'
+const api = axios.create({
+  baseURL: "http://localhost:8080/api/listing"
+});
+
+const getAllListings = async()=>{
+  try{
+    const res =  await api.get('/');
+    return res.data;
+  }catch(error){
+    console.error("API Error in getting all listings:", error);
+    return [];
+  }
+}
+
+const addListing = async(listing)=>{
+    try{
+      const res = await api.post('/');
+      console.log(res.data);
+    }catch(err){
+      console.log("Listing add failed: "+err);
+    }
+}

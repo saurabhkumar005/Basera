@@ -6,12 +6,14 @@ import App from './App.jsx'
 import Home from './pages/Home.jsx'
 import Register from './pages/Register.jsx'
 import Listing from './pages/Listing.jsx'
+import AddListing from './pages/AddListing.jsx'
 const routes = createBrowserRouter(
   createRoutesFromElements(
     <>
     <Route path="/" element={<App/>} >
       <Route index element={<Home/>}/>
       <Route path="listing" element={<Listing/>}/>
+      <Route path="/listing/add" element={<AddListing/>}/>
     </Route>
     <Route path="/register" element={<Register/>}/>
     </>

@@ -3,14 +3,14 @@ import mongoose from 'mongoose'
 const listingSchema= mongoose.Schema({
     title : {type: String, required: true},
     listingType : {type : String, required: true},
-    city : {type: String, reqired: true, index: true},
+    city : {type: String, required: true, index: true},
     address : {type: String, required: true},
     price : {type: Number, required: true},
     sharingType : {type : String, required : true},
     amenities : [String],
     rules: [String],
-    contactNumber : [String],
-    owner : { type: mongoose.Schema.type.ObjectId, ref : 'User', required: true}
+    contactNumber : String,
+    owner : { type: mongoose.Schema.Types.ObjectId, ref : 'User', required: false}
 }, {timestamps : true });
 //timestamps : true will store createdAt and updatedAt times
 
