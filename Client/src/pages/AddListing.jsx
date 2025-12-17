@@ -1,9 +1,12 @@
 import { useState } from 'react'
+import { addListing } from '../api/ListingData';
+
+
 export default function AddListing() {
     const amenitiesOptions = [
-        "WiFi", "AC", "Power Backup", "Attached Bathroom",
-        "Cleaning Included", "Parking", "Geyser", "CCTV",
-        "RO Water", "Lift", "Gym", "Mess/Food"
+        "WiFi", "Power Backup",   "Attached Bathroom", "AC","Lift",
+        "Parking", "Geyser", "Cleaning Included", "CCTV", "Gym",
+        "RO Water",  "Mess/Food"
     ];
 
     const rulesOptions = [
@@ -15,14 +18,14 @@ export default function AddListing() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
-        title: "", listingType: "", city: "", address: "",
+        title: "", listingType: "Room", city: "", address: "",
         price: "", sharingType: "", amenities: [], rules: [],
-        contactNumber: "", owner: ""
+        contactNumber: ""
     });
 
     const handleChange = (e) => {
         const { value, name } = e.target;
-        setFormData({ ...formData, [name]: [value] });
+        setFormData({ ...formData, [name]: value });
     }
 
     const handleCheckboxChange = (e, category) => {
@@ -37,8 +40,28 @@ export default function AddListing() {
             }
         });
     }
-    const handleSubmit = () => {
-        
+    const handleSubmit = async(e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError('');
+        setPosted(false);
+
+        try {
+            const res = await addListing(formData);
+            console.log("Listing posted Succesfully: " + res.data);
+            setPosted(true);
+            setFormData({
+        title: "", listingType: "Room", city: "", address: "",
+        price: "", sharingType: "", amenities: [], rules: [],
+        contactNumber: ""
+    });
+        }
+        catch (err) {
+            console.log("Error caught in posting new listing: " + err);
+            setError(err.response?.data?.message || err.message || "Something went wrong!");
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
@@ -49,15 +72,13 @@ export default function AddListing() {
                     Add New Property
                 </div>
 
-                {error && <div className='text-red-500 text-lg font-bold p-3'>
-                    ‼️Error Caught:
-                    {error}
-                    ‼️
+                {error && <div className='text-center text-red-500 text-lg font-bold p-3'>
+                    ‼️Error Caught: { error}‼️
                 </div>}
-                 {posted && <div className='text-green-600 text-lg font-bold p-3'>
-                   ✅ Listing Added Successfully: {formData.title}
+                {posted && <div className='text-center text-green-600 text-lg font-bold p-3'>
+                    ✅ Listing Added Successfully: {formData.title}
                     {error}
-                   ✅ 
+                    ✅
                 </div>}
                 <form onSubmit={handleSubmit} className=' flex flex-col  gap-4 text-lg'>
                     <div className="flex  gap-1 text-lg flex-col">
@@ -163,15 +184,15 @@ export default function AddListing() {
                     <div className='flex gap-1'>
                         <div className="flex  gap-1 text-lg flex-wrap">
                             <label className='font-bold  text-gray-700' >Amenities & Facilities</label>
-                            <div className='flex flex-wrap gap-2 '>
+                            <div className='flex flex-wrap  gap-x-7 gap-y-2 '>
                                 {amenitiesOptions.map((opt) => (
-                                    <div key={opt} className='flex gap-1 '>
+                                    <div key={opt} className='flex gap-2'>
                                         <input
                                             type="checkbox"
                                             value={opt}
                                             checked={formData.amenities.includes(opt)}
                                             onChange={(e) => { handleCheckboxChange(e, 'amenities') }}
-                                            className='border-2 accent-orange-400 cursor-pointer'
+                                            className='border-2 accent-orange-400 cursor-pointer w-5'
 
                                         />
                                         <span className='text-gray-700'>{opt}</span>
@@ -185,15 +206,15 @@ export default function AddListing() {
                     <div className='flex gap-1'>
                         <div className="flex  gap-1 text-lg flex-wrap">
                             <label className='font-bold  text-gray-700' >Rules</label>
-                            <div className='flex flex-wrap gap-2'>
+                            <div className='flex flex-wrap  gap-x-7 gap-y-2 '>
                                 {rulesOptions.map((opt) => (
-                                    <div key={opt} className='flex gap-1 '>
+                                    <div key={opt} className='flex gap-2 '>
                                         <input
                                             type="checkbox"
                                             value={opt}
                                             checked={formData.rules.includes(opt)}
                                             onChange={(e) => { handleCheckboxChange(e, 'rules') }}
-                                            className='border-2 accent-orange-400 cursor-pointer'
+                                            className='border-2 accent-orange-400 cursor-pointer w-5'
 
                                         />
                                         <span className='text-gray-700'>{opt}</span>

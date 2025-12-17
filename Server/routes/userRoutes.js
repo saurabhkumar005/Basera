@@ -1,6 +1,6 @@
 import express from 'express';
 import {addFavourites, removeFavourites, getFavourites, getProfile, updateProfile, publicProfile} from '../controllers/userController.js'
-import {verifyToken as authMiddleware} from '../middleware/authMiddleware.js'
+import authMiddleware from '../middleware/authMiddleware.js'
 
 const router = express.Router();
 

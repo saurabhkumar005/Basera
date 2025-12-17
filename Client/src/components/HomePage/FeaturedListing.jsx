@@ -1,5 +1,5 @@
 import ListingCard from "../Listing/ListingCard"
-import listings from "../../api/ListingData.jsx"
+import {mockListings as listings} from "../../api/ListingData.jsx"
 export default function FeaturedListings(){
 
     return(
