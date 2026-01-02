@@ -11,8 +11,8 @@ export default function Listing(){
             setLoading(true);
             try{
             const data = await getListing();
-            const modifiedData = data.map(item=>({...item, image: item.image || mockImages[Math.floor(Math.random()*mockImages.length)] }));
-            setListingData([...listingData, ...modifiedData]);
+            const modifiedData = data.map(item=>({...item, image: item.image || mockImages[Math.floor(Math.random()*mockImages.length)] })).reverse();
+            setListingData([ ...modifiedData, ...listingData]);
             } catch(err){
                 console.error("Failed to fetch listing data from server: "+err);
             }finally{setLoading(false);}
