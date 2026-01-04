@@ -66,8 +66,8 @@ export default function AddListing() {
 
     return (
 
-        <div className="flex justify-center items-center w-[100vw] ">
-            <div className="w-[80vw] max-w-[800px]  bg-orange-100 p-5 my-8">
+        <div className="flex justify-center items-center w-[100vw]  ">
+            <div className="w-[80vw] max-w-[800px]  bg-orange-100 p-5 my-8 rounded-4xl">
                 <div className='text-center w-full text-3xl text-orange-500 mb-2 font-bold'>
                     Add New Property
                 </div>
@@ -221,9 +221,9 @@ export default function AddListing() {
                                     </div>
                                 ))}
                             </div>
-                            <div className='-mx-4 w-full h-10  flex justify-center mt-4 '>
+                            <div className=' w-full   flex justify-center mt-4 '>
                                 <button
-                                    className={` ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-orange-400 hover:bg-orange-500  hover:shadow-orange-700'} bg-gray-700  hover:shadow-lg rounded-xl p-2 px-7 `} >{loading ? 'Submitting...' : 'Post Listing'}</button>
+                                    className={` ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-orange-400 hover:bg-orange-500  hover:shadow-orange-700'} bg-gray-700  hover:shadow-lg rounded-xl p-3 px-6 text-gray-900 text-xl`} >{loading ? 'Submitting...' : 'Post Listing'}</button>
                             </div>
                         </div>
                     </div>

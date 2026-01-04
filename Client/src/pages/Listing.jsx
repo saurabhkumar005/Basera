@@ -24,7 +24,7 @@ export default function Listing(){
         <div className="bg-orange-100 w-[100vw] h-28 flex justify-center items-center">
         <SearchBar/>
         </div>
-        <div className="w-full h-full  gap-5 p-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <div className=" w-full h-full  gap-5 p-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {listingData.map((item)=>{
             return <ListingCard listing={item} key={item._id? item._id : Math.random()*1000}/>
         })}
