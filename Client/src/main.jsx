@@ -7,6 +7,7 @@ import Home from './pages/Home.jsx'
 import Register from './pages/Register.jsx'
 import Listing from './pages/Listing.jsx'
 import AddListing from './pages/AddListing.jsx'
+import ListingDetails from './pages/listingDetails.jsx'
 const routes = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -14,6 +15,7 @@ const routes = createBrowserRouter(
       <Route index element={<Home/>}/>
       <Route path="listing" element={<Listing/>}/>
       <Route path="/listing/add" element={<AddListing/>}/>
+      <Route path="listing/:id" element={<ListingDetails/>}/>
     </Route>
     <Route path="/register" element={<Register/>}/>
     </>

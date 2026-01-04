@@ -1,0 +1,5 @@
+
+ListingDetails.jsx 
+add description and state rows in listing database and edit all page as needed
+complete the add to my wishlist or liked collection things
+complete chat on whatsapp part

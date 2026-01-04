@@ -12,6 +12,17 @@ import Listing from '../models/Listing.js'
         res.status(500).json({message : err.message});
     }
 }
+export const getListingById = async(req,res)=>{
+    try{
+        const {id} = req.params;
+        const listing = await Listing.findById(id);
+        if(!listing)return res.status(404).json({message: "Listing not found!"});
+        res.status(200).json(listing);
+    }catch(error){
+        console.error("Error fetching listing By id from server:", error);
+        res.status(500).json({message: "Server Error"});
+    }
+}
 
 export const addListing = async(req,res)=>{
     //taking all  detaills for new listing from from post body and creating new document of Listing with these data
