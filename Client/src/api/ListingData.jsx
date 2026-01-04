@@ -36,8 +36,9 @@ const mockListings = [
 
 
 import axios from 'axios'
+
 const api = axios.create({
-  baseURL: "http://localhost:8080/api/listing"
+  baseURL: `${import.meta.env.VITE_SERVER_URL}/api/listing`
 });
 
 const  getListings = async()=>{
@@ -47,6 +48,15 @@ const  getListings = async()=>{
   }catch(error){
     console.error("API Error in getting all listings:", error);
     return [];
+  }
+};
+export const getListingById = async(id)=>{
+  try{
+    const res = await api.get(`/${id}`);
+    return res.data;
+  }catch(err){
+    console.log("Axios: Error fetching listing by id from server!");
+    return null;
   }
 };
 

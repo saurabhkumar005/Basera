@@ -1,7 +1,12 @@
+import {Link} from "react-router-dom"
 
 export default function ListingCard({listing}){
+
     return(
-        <div key={listing._id} className="border  w-full rounded-2xl ">
+        <Link
+        to={`/listing/${listing._id}`}
+        state={listing}
+          key={listing._id} className="border  w-full rounded-2xl ">
             <div className=" p- h-48 w-full  ">
                 <img src={listing.image} className="h-full w-full rounded-t-2xl object-cover" alt="Home"/>
             </div>
@@ -11,6 +16,6 @@ export default function ListingCard({listing}){
         
             <p>Price: Rs. {listing.price}/month</p>
             </div>
-        </div>
+        </Link>
     )
 }
