@@ -63,12 +63,12 @@ export default function AddListing() {
             setLoading(false);
         }
     }
-
+const inputStyle =  "w-full p-3 rounded-3xl focus:bg-gray-100 border-3 border-orange-200 focus:outline-none  hover:border-orange-400 focus:border-orange-500 placeholder-gray-500 shadow-[inset_3px_2px_6px_rgba(0,0,0,0.4)] focus:shadow-[inset_2px_0px_4px_rgba(0,0,0,0.6)]";
     return (
 
         <div className="flex justify-center items-center w-[100vw]  ">
             <div className="w-[80vw] max-w-[800px]  bg-orange-100 p-5 my-8 rounded-4xl">
-                <div className='text-center w-full text-3xl text-orange-500 mb-2 font-bold'>
+                <div className='text-center w-full text-3xl text-orange-400 mb-2 font-bold'>
                     Add New Property
                 </div>
 
@@ -87,7 +87,7 @@ export default function AddListing() {
                             type="text"
                             name="title"
                             placeholder='eg., 4-BHK Flat Near Marine Drive... '
-                            className='border-2 p-2 rounded-xl w-full focus:border-orange-400   focus:outline-none'
+                            className={inputStyle}
                             required
                             onChange={handleChange}
                             value={formData.title}
@@ -102,7 +102,7 @@ export default function AddListing() {
                                 type="text"
                                 name="city"
                                 placeholder='eg., Mumbai'
-                                className='border-2 p-2 rounded-xl  focus:border-orange-400   focus:outline-none'
+                                className={inputStyle}
                                 required
                                 onChange={handleChange}
                                 value={formData.city}
@@ -113,7 +113,7 @@ export default function AddListing() {
                                 className='font-bold  text-gray-700 '>Property Type</label>
                             <select type="text" name="listingType" value={formData.listingType}
                                 onChange={handleChange}
-                                className='border-2 flex  h-12 border-2 rounded-xl text-center focus:outline-none focus:border-orange-400'>
+                                className={`${inputStyle}    text-center `}>
                                 <option className=' border rounded-2xl bg-orange-200' value="Room">Room</option>
                                 <option className=' border rounded-2xl bg-orange-200' value="PG">PG</option>
                                 <option className=' border rounded-2xl bg-orange-200' value="Flat">Flat</option>
@@ -131,32 +131,31 @@ export default function AddListing() {
                             type="text"
                             name="address"
                             placeholder='eg., 101, BK Apartement, Near Ambani Villa'
-                            className='border-2 p-2 rounded-xl w-full focus:border-orange-400   focus:outline-none'
-
+                            className={inputStyle}
                             onChange={handleChange}
                             value={formData.address}
                         />
                     </div>
 
                     {/* price  and sharing type ad contact number*/}
-                    <div className='flex gap-3 w-full'>
+                    <div className='flex gap-3 w-full flex-col md:flex-row'>
                         <div className="flex  gap-1 text-lg flex-col w-full">
                             <label htmlFor="price" className='font-bold  text-gray-700' >Price </label>
                             <input
                                 type="text"
                                 name="price"
-                                placeholder='eg., Rs. 25K Per Month'
-                                className='border-2 p-2 rounded-xl w-full focus:border-orange-400   focus:outline-none'
+                                placeholder='eg. Rs. 25000/month , 90K/year'
+                                className={inputStyle}
                                 onChange={handleChange}
                                 value={formData.price}
                             />
                         </div>
-                        <div className='flex flex-col gap-1   '>
+                        <div className='flex flex-col gap-1  '>
                             <label htmlFor="sharingType"
                                 className='font-bold  text-gray-700 '>Sharing Type</label>
                             <select type="text" name="sharingType" value={formData.sharingType}
                                 onChange={handleChange} required
-                                className='border-2 flex  h-12 border-2 rounded-xl text-center focus:outline-none focus:border-orange-400'>
+                                  className={`${inputStyle} min-w-45   text-center `}>
                                 <option className=' border rounded-2xl bg-orange-200' disabled value="" >Select Occupancy</option>
                                 <option className=' border rounded-2xl bg-orange-200' value="Single">Single</option>
                                 <option className=' border rounded-2xl bg-orange-200' value="Double">Double</option>
@@ -171,8 +170,8 @@ export default function AddListing() {
                             <input
                                 type="text"
                                 name="contactNumber"
-                                placeholder='eg., +91987654321'
-                                className='border-2 p-2 rounded-xl w-full focus:border-orange-400   focus:outline-none'
+                                placeholder='eg. +91987654321'
+                                  className={`${inputStyle} `}
                                 onChange={handleChange}
                                 value={formData.contactNumber}
                             />
@@ -192,7 +191,8 @@ export default function AddListing() {
                                             value={opt}
                                             checked={formData.amenities.includes(opt)}
                                             onChange={(e) => { handleCheckboxChange(e, 'amenities') }}
-                                            className='border-2 accent-orange-400 cursor-pointer w-5'
+                                            className='border-2 accent-orange-300 cursor-pointer w-5'
+                                            
 
                                         />
                                         <span className='text-gray-700'>{opt}</span>
@@ -214,7 +214,7 @@ export default function AddListing() {
                                             value={opt}
                                             checked={formData.rules.includes(opt)}
                                             onChange={(e) => { handleCheckboxChange(e, 'rules') }}
-                                            className='border-2 accent-orange-400 cursor-pointer w-5'
+                                            className='border-2 accent-orange-300 cursor-pointer w-5'
 
                                         />
                                         <span className='text-gray-700'>{opt}</span>
@@ -223,7 +223,7 @@ export default function AddListing() {
                             </div>
                             <div className=' w-full   flex justify-center mt-4 '>
                                 <button
-                                    className={` ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-orange-400 hover:bg-orange-500  hover:shadow-orange-700'} bg-gray-700  hover:shadow-lg rounded-xl p-3 px-6 text-gray-900 text-xl`} >{loading ? 'Submitting...' : 'Post Listing'}</button>
+                                    className={` ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-b from-orange-200 to-orange-400 hover:bg-gradient-to-b hover:from-orange-300 hover:to-orange-500   hover:shadow-orange-300'} bg-gray-200  hover:shadow-md rounded-3xl p-3 px-6 text-gray-900 text-xl`} >{loading ? 'Submitting...' : 'Post Listing'}</button>
                             </div>
                         </div>
                     </div>

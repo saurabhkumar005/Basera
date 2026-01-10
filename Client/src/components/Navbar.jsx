@@ -22,7 +22,7 @@ export default function Navbar() {
                     <NavLink className="hover:text-[#E98234] ">Contact</NavLink>
                 </div>
                 <div className=" flex gap-5 items-center justify-end ">
-                    <NavLink to="/listing/add" className="hidden sm:flex rounded-4xl p-3 border text-white bg-[#E98234] hover:text-[#E98234] hover:bg-white">Add Your Listing</NavLink>
+                    <NavLink to="/listing/add" className="hidden sm:flex rounded-4xl p-3 border text-white bg-orange-400 hover:text-[#E98234] hover:bg-white">Add Your Listing</NavLink>
                     <NavLink className="border rounded-4xl p-3 hover:bg-[#E98234] hover:text-white">Login/Register</NavLink>
                 </div>
             
