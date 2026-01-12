@@ -10,7 +10,7 @@ const listingSchema= mongoose.Schema({
     amenities : [String],
     rules: [String],
     contactNumber : String,
-    owner : { type: mongoose.Schema.Types.ObjectId, ref : 'User', required: false}
+    owner : { type: mongoose.Schema.Types.ObjectId, ref : 'User', required: true}
 }, {timestamps : true });
 //timestamps : true will store createdAt and updatedAt times
 
