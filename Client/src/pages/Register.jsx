@@ -23,10 +23,16 @@ export default function Register() {
         setValidationError({});
         setGlobalError("");
 
+        // we cannot directly push error in validationError useState variable because useState uses batch updates, means whenever we run 
+        // setValidationError functon of useState to set its variable, it add a async request and JS will update it later in a batch of many,
+        // so it might happen that one update is overwrited by other and some update may never happen, so to be safe from this we uses a normal
+        // object and push all error to it and then at very last , after all validations, push the object to main state error variable.
         const newErrors = {};
 
         const nameError = validateName(formData.name);
         if(nameError) newErrors.name = nameError;
+//if there is any error returned form validateName function, then newErrors.name will create a key as name and value as nameError
+
 
         const emailError = validateEmail(formData.email);
         if(emailError) newErrors.email = emailError;
@@ -37,6 +43,8 @@ export default function Register() {
         const phoneError = validatePhone(formData.phone);
         if(phoneError) newErrors.phone = phoneError;
 
+        // for checking object length, we cannot just use .length on it as it only works for arrays/list, so we will use Object.keys(objectName) which
+        // eventually convert all keys in object to array and then use length on it
         if(Object.keys(newErrors).length>0){
             setValidationError(newErrors);
             return;
