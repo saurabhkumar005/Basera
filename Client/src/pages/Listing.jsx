@@ -1,6 +1,6 @@
 import ListingCard from "../components/Listing/ListingCard"
-import SearchBar from "../components/SearchBar"
-import getListing,{  mockImages, mockListings } from '../api/ListingData';
+import SearchBar from "../components/Layout/SearchBar.jsx"
+import getListing,{  mockImages, mockListings } from '../api/ListingData.js';
 import { useState, useEffect } from "react";
 
 export default function Listing(){

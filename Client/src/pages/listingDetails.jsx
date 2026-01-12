@@ -1,7 +1,7 @@
 import { useLocation, useParams } from "react-router-dom"
 import { useState, useEffect } from "react"
-import { getListingById } from "../api/ListingData";
-import { mockImages } from "../api/ListingData";
+import { getListingById } from "../api/ListingData.js";
+import { mockImages } from "../api/ListingData.js";
 export default function ListingDetails() {
     const { id } = useParams();
     const location = useLocation();
@@ -35,7 +35,7 @@ export default function ListingDetails() {
                     <div className="p-1 flex flex- gap-2 overflow-x-auto">
                         {mockImages.slice(0, 5).map((ele, idx) => (
                             <img className="w-32 sm:w-36 md:w-40   object-cover cursor-pointer rounded-md hover:opacity-80 border "
-                                key={idx} src={ele} alt={`Listing Image ${idx + 1}`} onClick={() => handleImageChange(ele)} />
+                                key={idx+1} src={ele} alt={`Listing Image ${idx + 1}`} onClick={() => handleImageChange(ele)} />
                         ))}
                     </div>
                     
@@ -87,13 +87,13 @@ export default function ListingDetails() {
                         <div className="w-[47%] bg-slate-200 rounded-2xl text-md text-gray-800 p-4">
                             <h1 className="text-xl text-black mb-2">Amenities</h1>
                             {listing.amenities.map((ele, idx) => (
-                                <p>{idx + 1}. {ele}</p>
+                                <p key={idx}>{idx + 1}. {ele}</p>
                             ))}
                         </div>
                         <div className="w-[47%] bg-slate-200 rounded-2xl text-md text-gray-800 p-4">
                             <h1 className="text-xl text-black mb-2">Rules</h1>
                             {listing.rules.map((ele, idx) => (
-                                <p>{idx + 1}. {ele}</p>
+                                <p key={idx}>{idx + 1}. {ele}</p>
                             ))}
                         </div>
                     </div>

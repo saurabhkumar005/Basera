@@ -1,5 +1,5 @@
 import ListingCard from "../Listing/ListingCard"
-import getListings, { mockListings, mockImages } from "../../api/ListingData.jsx"
+import getListings, { mockListings, mockImages } from "../../api/ListingData.js"
 import { useState, useEffect } from 'react'
 export default function FeaturedListings() {
     //TODO: apply useContext for better state management and avoid slowness due to repetitive same api call

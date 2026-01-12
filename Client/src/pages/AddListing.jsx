@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { addListing } from '../api/ListingData';
+import { addListing } from '../api/ListingData.js';
 
 
 export default function AddListing() {

@@ -1,8 +1,8 @@
 import HomeBG from "../../assets/images/homeBackground.png"
-import SearchBar from '../SearchBar';
+import SearchBar from '../Layout/SearchBar';
 export default function HeroSection(){
     return(
- <div className='w-[100vw] h-[650px] bg-cover bg-center bg-no-repeat relative'
+ <div className='w-full h-[650px] bg-cover bg-center bg-no-repeat relative'
             style={{ backgroundImage: `url(${HomeBG})` }}
         >
             <div className='absolute inset-0 bg-black/30 '></div>

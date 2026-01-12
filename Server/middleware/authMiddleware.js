@@ -14,7 +14,7 @@ export default  function verifyToken(req, res, next){
         req.user = dataDecoded;
         next();
     }catch(err){
-        return res.status(403).json({message: "Access Denied! Invalid or expired token "})
+        return res.status(401).json({message: "Access Denied! Invalid or expired token "})
     }
 }
 
