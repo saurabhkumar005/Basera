@@ -7,7 +7,7 @@ const register = async(req, res)=>{
         const {name, password, email, avatarUrl, phone, favourites} = req.body;
         let user = await User.findOne({email});
         if(user){
-            return res.status(400).json({message: "User already exists"})
+            return res.status(400).json({message: "User already exists! Login Please..."})
         };
 
         let newUser = new User({name, email, password, avatarUrl, phone, favourites });
@@ -29,13 +29,13 @@ const login = async(req, res)=>{
 
         //check if user exist in our DB
         if(!user){
-            return res.status(404).send({message: "User Email ID not Registered, Please Register First!"});
+            return res.status(404).send({message: "User Email ID not Registered, Please Register First"});
         }
         
         //check if user password matches from our DB
         const isMatch = await bcrypt.compare(password, user.password);
         if(!isMatch){
-            return res.status(401).send({message: 'Invalid Credentials!, Please Enter Correct Credential.'})
+            return res.status(401).send({message: 'Wrong password, Please Enter Correct Password'})
         }
         const payload = {userId : user._id};
         const token = jwt.sign(payload, process.env.JWT_SECRET, {expiresIn : '1d'});

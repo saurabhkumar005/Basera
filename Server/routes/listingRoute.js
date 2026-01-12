@@ -14,7 +14,7 @@ router.get('/:id', getListingById);
 // If token is valid → proceeds to addListing().
 // If token is missing/invalid → stops there and sends 401/403.
 router.get('/myListing', authMiddleware, getMyListing);
-router.post('/', addListing);
+router.post('/', authMiddleware, addListing);
 router.delete('/:id',authMiddleware,deleteListing);
 //using put to update because , patch is used to update some part of document(Used for small updates (like changing one or two fields). )
 //  where as put is used to replace whole doocument(Used when you want to send all fields (complete object update))

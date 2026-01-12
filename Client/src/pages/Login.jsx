@@ -1,14 +1,56 @@
 import loginBG from "../assets/images/loginBG.png"
 import OrangeButton from "../components/UI/orangeButton";
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
+import { useState } from "react";
+import { LoginUser } from "../api/AuthApi.js";
+import { validateEmail, validatePassword} from "../utils/Validation.js";
 export default function Login() {
+    const navigate = useNavigate();
+    const [formData,setFormData] = useState({email:"", password:""});
+    const [validationError, setValidationError] = useState({});
+    const [globalError, setGlobalError] = useState("");
+
+    const handleChange = (e)=>{
+        let {name, value} = e.target;
+        setFormData((data)=>({...data,[name]:value}));
+    }
+
+    const handleSubmit = async(e)=>{
+        e.preventDefault();
+        setValidationError({});
+        setGlobalError();
+
+        const newErrors = {};
+
+        const emailError = validateEmail(formData.email);
+        if(emailError) newErrors.email = emailError;
+        
+        const passwordError = validatePassword(formData.password);
+        if(passwordError) newErrors.password = passwordError;
+
+        if(Object.keys(newErrors).length>0){
+            setValidationError(newErrors);
+            return;
+        }
+
+        try{
+            const res = await LoginUser(formData);
+            localStorage.setItem('token',res.token);
+            navigate('/');
+        }catch(err){
+            console.error(`login error: ${err.response?.data?.message}`);
+            setGlobalError(err.response?.data?.message || "Something went wrong. Please try again.");
+        }
+    }
     const inputStyle =  "w-full p-3 rounded-2xl bg-gray-200 border-2 border-gray-200 focus:outline-none  hover:border-orange-500 focus:border-orange-500 placeholder-gray-500 shadow-[inset_2px_3px_6px_rgba(0,0,0,0.4)] focus:shadow-[inset_2px_0px_4px_rgba(0,0,0,0.6)]";
     return (
         <>
             <div
                 style={{ backgroundImage: `url(${loginBG})` }}
                 className={` w-screen h-screen bg-cover bg-center bg-no-repeat flex justify-center items-center`}>
-                <div className="p-6 w-90 sm:w-120  bg-white/40 relative z-10 backdrop-blur-sm border border-white/90 shadow-xl rounded-4xl flex flex-col gap-2">
+                <div className="p-6 w-100 sm:w-120  bg-white/40 relative z-10 backdrop-blur-md border border-white/90 shadow-xl rounded-4xl flex flex-col gap-2">
+
+                    
 
                     {/* Header */}
                     <div className="flex flex-col gap-1">
@@ -16,22 +58,42 @@ export default function Login() {
                         <p className=" text-center text-xl">Welcome back to Basera!</p>
                     </div>
 
+
+                    {/* Login error  */}
+                    {globalError && <div className="font-bold text-center text-red-600 ">
+                        ‼️{globalError}‼️
+                    </div>
+                    }       
+
                     {/* Login form */}
-                    <form className="text-lg text-gray-900 flex flex-col gap-2">
+                    <form onSubmit={(e)=>handleSubmit(e)} className="text-lg text-gray-900 flex flex-col gap-2">
                         <label htmlFor="email">
                             Email
                         </label>
                         <input name="email"
                             className= {inputStyle}
                             placeholder="Enter your email"
+                            onChange={(e)=>handleChange(e)}
+                            value={formData.email}
                         />
+                        {/* validation error  */}
+                        {validationError.email && <span className="text-red-600 ">  {validationError.email}</span>}
+                        
+                        
                         <label htmlFor="password">
                             Password
                         </label>
                         <input name="password"
                             className={inputStyle}
                             placeholder="Enter your Password"
+                            onChange={(e)=>handleChange(e)}
+                            value={formData.password}
                         />
+
+                         {/* validation error  */}
+                        {validationError.password && <span className="text-red-600 ">  {validationError.password}</span>}
+
+
                     <OrangeButton placeholder={"Login"} type={"submit"}/>
                     </form>
                     <div className=" flex justify-center">
