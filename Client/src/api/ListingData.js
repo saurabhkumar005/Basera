@@ -65,5 +65,10 @@ const addListing = async(listing)=>{
       throw err;
     }
 }
+export const countMyListing = async()=>{
+  const res = await api.get('/listing/countMyListing');
+  console.log("listing count fetched from server ", res.data.count);
+  return res.data.count;
+}
 export default getListings;
-export { addListing, mockListings};
+export { addListing,  mockListings};
