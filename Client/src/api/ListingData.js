@@ -70,5 +70,13 @@ export const countMyListing = async()=>{
   console.log("listing count fetched from server ", res.data.count);
   return res.data.count;
 }
+export const getMyListings = async()=>{
+  try{
+  const res = await api.get('/listing/myListing');
+  return res.data.listings;
+  }catch(err){
+    throw err;
+  }
+}
 export default getListings;
 export { addListing,  mockListings};
