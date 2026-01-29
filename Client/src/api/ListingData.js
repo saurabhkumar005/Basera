@@ -35,15 +35,11 @@ const mockListings = [
 
 
 
-import axios from 'axios'
-
-const api = axios.create({
-  baseURL: `${import.meta.env.VITE_SERVER_URL}/api/listing`
-});
+import api from "./axiosInstance.js"
 
 const  getListings = async()=>{
   try{
-    const res =  await api.get('/');
+    const res =  await api.get('/listing/');
     return res.data;
   }catch(error){
     console.error("API Error in getting all listings:", error);
@@ -52,7 +48,7 @@ const  getListings = async()=>{
 };
 export const getListingById = async(id)=>{
   try{
-    const res = await api.get(`/${id}`);
+    const res = await api.get(`/listing/${id}`);
     return res.data;
   }catch(err){
     console.log("Axios: Error fetching listing by id from server!");
@@ -62,7 +58,7 @@ export const getListingById = async(id)=>{
 
 const addListing = async(listing)=>{
     try{
-      const res = await api.post('/',listing);
+      const res = await api.post('/listing/',listing);
       return res;
     }catch(err){
       console.log("Listing add failed: "+err);

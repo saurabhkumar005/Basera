@@ -4,11 +4,14 @@ import {Link, useNavigate} from 'react-router-dom'
 import { useState } from "react";
 import { LoginUser } from "../api/AuthApi.js";
 import { validateEmail, validatePassword} from "../utils/Validation.js";
+import { useAuthContext } from "../context/AuthContext.jsx";
+
 export default function Login() {
     const navigate = useNavigate();
     const [formData,setFormData] = useState({email:"", password:""});
     const [validationError, setValidationError] = useState({});
     const [globalError, setGlobalError] = useState("");
+    const {setUser} = useAuthContext();
 
     const handleChange = (e)=>{
         let {name, value} = e.target;
@@ -35,7 +38,10 @@ export default function Login() {
 
         try{
             const res = await LoginUser(formData);
+            console.log("From login page: after user click on login ", res);
             localStorage.setItem('token',res.token);
+            // console.log(res.user);
+            setUser(res);
             navigate('/');
         }catch(err){
             console.error(`login error: ${err.response?.data?.message}`);

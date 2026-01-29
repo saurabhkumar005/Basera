@@ -48,7 +48,7 @@ export default function AddListing() {
 
         try {
             const res = await addListing(formData);
-            console.log("Listing posted Succesfully: " + res.data);
+            // console.log("Listing posted Succesfully: " + res.data);
             setPosted(true);
             setFormData({
         title: "", listingType: "Room", city: "", address: "",
@@ -57,7 +57,7 @@ export default function AddListing() {
     });
         }
         catch (err) {
-            console.log("Error caught in posting new listing: " + err);
+            // console.log("Error caught in posting new listing: " + err);
             setError(err.response?.data?.message || err.message || "Something went wrong!");
         } finally {
             setLoading(false);
