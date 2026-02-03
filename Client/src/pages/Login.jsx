@@ -11,7 +11,7 @@ export default function Login() {
     const [formData,setFormData] = useState({email:"", password:""});
     const [validationError, setValidationError] = useState({});
     const [globalError, setGlobalError] = useState("");
-    const {setUser} = useAuthContext();
+    const {setUser, getUserDetails} = useAuthContext();
 
     const handleChange = (e)=>{
         let {name, value} = e.target;
@@ -40,8 +40,9 @@ export default function Login() {
             const res = await LoginUser(formData);
             console.log("From login page: after user click on login ", res);
             localStorage.setItem('token',res.token);
+            await getUserDetails();
             // console.log(res.user);
-            setUser(res);
+            
             navigate('/');
         }catch(err){
             console.error(`login error: ${err.response?.data?.message}`);

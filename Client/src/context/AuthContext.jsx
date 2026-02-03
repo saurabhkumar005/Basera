@@ -8,8 +8,9 @@ export const AuthProvider = ({children})=>{
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    useEffect(()=>{
-        const getUserDetails = async()=>{
+
+
+    const getUserDetails = async()=>{
             const token =  getJWTToken();
             try{
             if(token){
@@ -17,17 +18,21 @@ export const AuthProvider = ({children})=>{
                 const data = await getUser();
                 setUser(data);
                 // console.log("from AuthCOntext.jsx: ",data);
-            }
+            }else{setUser(null);}
 
+        }catch(error){
+            setUser(null);
         }finally{
             setLoading(false);
         }
-        };
+        }
+
+    useEffect(()=>{
         getUserDetails();
     },[]);
 
     const value = {
-        user, loading, setUser, isAuthenticated: !!user,
+        user, loading, setUser, isAuthenticated: !!user, getUserDetails
     };
     return (
         <AuthContext.Provider value={value}>

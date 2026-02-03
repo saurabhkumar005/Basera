@@ -4,6 +4,7 @@ import { Menu, X} from 'lucide-react'
 import { useState } from "react";
 import { getJWTToken } from "../../utils/Auth";
 import { useAuthContext } from "../../context/AuthContext";
+import DP1 from '../../assets/images/anime.jpg'
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const navigate = useNavigate();
@@ -33,6 +34,7 @@ export default function Navbar() {
                     <NavLink className="hover:text-[#E98234] ">About</NavLink>
                     <NavLink className="hover:text-[#E98234] ">Contact</NavLink>
                 </div>
+                
                 <div className=" flex gap-5 items-center justify-end ">
                     <NavLink to="/listing/add" className="hidden sm:flex rounded-4xl p-3 border text-white bg-orange-400 hover:text-orange-400 hover:bg-white">Add Your Listing</NavLink>
                     {!isAuthenticated?
@@ -41,6 +43,10 @@ export default function Navbar() {
                      (<NavLink onClick={handleLogout} className="hidden lg:flex border rounded-3xl px-6 p-3 hover:bg-orange-400 hover:text-white font-bold  text-orange-400 ">Logout </NavLink>)
                     }
                 </div>
+                {isAuthenticated && <NavLink to='/profile' className="flex  gap-3 ">
+                    <img src={DP1} className=" w-11 h-11 object-center object-cover rounded-full"/>
+                        <h1 className=" flex items-center font-bold">{user?.name || "User"}</h1>
+                    </NavLink>}
             
             {/* //Mobile menu button */}
             <button onClick={handleToggle} type="button" className="lg:hidden" >

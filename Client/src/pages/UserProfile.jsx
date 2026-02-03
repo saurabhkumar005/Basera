@@ -46,11 +46,11 @@ export default function UserProfile() {
                             <h2 className="text-4xl font-bold ">{user.name}</h2>
                             <h3 className="">{user.email}</h3>
                             <h3 >{user.phone}</h3>
-                            <div className="">Member Since {formatDate(user.createdAt)}</div>
+                            <div className="">Member Since {formatDate(user?.createdAt)}</div>
                         </div>
                         
                         <div className=" flex gap-4  items-center flex-wrap">
-                            <button className="bg-white p-4 rounded-3xl">❤️{user.favourites.length} Favorites</button>
+                            <button className="bg-white p-4 rounded-3xl">❤️{user?.favourites?.length || 0} Favorites</button>
                             <button className="bg-white p-4 rounded-3xl">🏠{myListings.length} Listings </button>
                             <button className="bg-white p-4 rounded-3xl">💬 Messages</button>
                         </div>
@@ -82,7 +82,7 @@ export default function UserProfile() {
             <div className="p-5">
                 <h1 className="text-2xl font-bold text-orange-600 underline">My Favourites </h1>
                 <div className="flex overflow-x-auto  gap-5 p-3">
-                    {user.favourites.length>0 ? user.favourites.map((listing)=>(
+                    {user?.favourites?.length>0 ? user.favourites.map((listing)=>(
                         <div className="w-[300px] "  key={listing._id}> 
                         <ListingCard listing={listing}></ListingCard>
                         </div>

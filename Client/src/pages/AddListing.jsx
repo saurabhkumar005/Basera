@@ -144,7 +144,7 @@ const inputStyle =  "w-full p-3 rounded-3xl focus:bg-gray-100 border-3 border-or
                             <input
                                 type="text"
                                 name="price"
-                                placeholder='eg. Rs. 25000/month , 90K/year'
+                                placeholder='Enter price per month. i.e, 5000, 6000, 30000'
                                 className={inputStyle}
                                 onChange={handleChange}
                                 value={formData.price}
