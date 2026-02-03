@@ -11,6 +11,8 @@ import Register from './pages/Register.jsx'
 import Login from './pages/Login.jsx'
 import ProtectedRoute from './routes/ProtectedRoutes.jsx'
 import PublicRoute from './routes/PublicRoute.jsx'
+import { AuthProvider } from './context/AuthContext.jsx'
+import UserProfile from './pages/UserProfile.jsx'
 const routes = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -19,9 +21,13 @@ const routes = createBrowserRouter(
       <Route index element={<Home/>}/>
       <Route path="listing" element={<Listing/>}/>
       <Route path="listing/:id" element={<ListingDetails/>}/>
+
+
       <Route element={<ProtectedRoute/>}>
         <Route path="/listing/add" element={<AddListing/>}/>
+        <Route path="/profile" element={<UserProfile/>}></Route>
       </Route>
+
 
     </Route>
     <Route element={<PublicRoute/>}> 
@@ -33,6 +39,8 @@ const routes = createBrowserRouter(
 );
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <AuthProvider>
   <RouterProvider router={routes}/>
+  </AuthProvider>
   </StrictMode>
 )

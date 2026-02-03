@@ -15,7 +15,7 @@ api.interceptors.request.use((config)=>{
         // if logged in, add jwt token to current response object as
         // backend will check it for protected route and only allow to visit it
         // once your token is verified  by server/jwt
-        config.headers.Authorization = `Bearer: ${token}`;
+        config.headers.Authorization = `Bearer ${token}`;
     }
     // return modified config to proceed to server
     return config;
@@ -33,7 +33,7 @@ api.interceptors.request.use((config)=>{
     // axios response interceptors is a middleware runnned by axios whenever 
     // any response came from server for the request called above
 
-axios.interceptors.response.use((response)=>{
+api.interceptors.response.use((response)=>{
     // if no error came, return response directly
     return response;
 },
@@ -43,7 +43,7 @@ axios.interceptors.response.use((response)=>{
     // jwt token if there and redirect to llogin page
     if(error.response && error.response.status===401){
         localStorage.removeItem("token");
-        windows.location.href = '/login';
+        window.location.href = '/login';
     }
 })
 export default api;

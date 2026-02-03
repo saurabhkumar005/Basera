@@ -90,3 +90,13 @@ export const getMyListing = async(req, res)=>{
         res.status(500).json({message:err.message});
     }
 }
+
+export const countMyListing = async(req, res)=>{
+    try{
+    const id = req.user.userId;
+    const totalListing = await Listing.countDocuments({owner: id})
+    res.status(200).json({count: totalListing});
+}catch(err){
+    res.status(500).json({message: err.message});
+}
+}

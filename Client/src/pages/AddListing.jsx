@@ -48,7 +48,7 @@ export default function AddListing() {
 
         try {
             const res = await addListing(formData);
-            console.log("Listing posted Succesfully: " + res.data);
+            // console.log("Listing posted Succesfully: " + res.data);
             setPosted(true);
             setFormData({
         title: "", listingType: "Room", city: "", address: "",
@@ -57,7 +57,7 @@ export default function AddListing() {
     });
         }
         catch (err) {
-            console.log("Error caught in posting new listing: " + err);
+            // console.log("Error caught in posting new listing: " + err);
             setError(err.response?.data?.message || err.message || "Something went wrong!");
         } finally {
             setLoading(false);
@@ -144,7 +144,7 @@ const inputStyle =  "w-full p-3 rounded-3xl focus:bg-gray-100 border-3 border-or
                             <input
                                 type="text"
                                 name="price"
-                                placeholder='eg. Rs. 25000/month , 90K/year'
+                                placeholder='Enter price per month. i.e, 5000, 6000, 30000'
                                 className={inputStyle}
                                 onChange={handleChange}
                                 value={formData.price}
