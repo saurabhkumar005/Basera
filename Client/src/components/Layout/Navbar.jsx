@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import Logo from '../../assets/images/logo2.png'
-import { Menu, X} from 'lucide-react'
+import { Menu, X, UserRound} from 'lucide-react'
 import { useState } from "react";
 import { getJWTToken } from "../../utils/Auth";
 import { useAuthContext } from "../../context/AuthContext";
@@ -44,19 +44,20 @@ export default function Navbar() {
                     }
                 </div>
                 {isAuthenticated && <NavLink to='/profile' className="flex  gap-3 ">
-                    <img src={DP1} className=" w-11 h-11 object-center object-cover rounded-full"/>
-                        <h1 className=" flex items-center font-bold">{user?.name || "User"}</h1>
+                    {user?.avatarUrl ? <img src={user.avatarUrl} className=" w-13 h-13 object-top object-cover rounded-full border hover:border-orange-400 border-1  hover:border-3 transition duration-200 ease-in-out"/>
+                    : <UserRound className="p-[0.3rem] w-11 h-11 rounded-full border hover:border-orange-400 border-2  hover:border-3 transition duration-200 ease-in-out"/>}
+                        {/* <h1 className=" flex items-center font-bold">{user?.name || "User"}</h1> */}
                     </NavLink>}
             
             {/* //Mobile menu button */}
             <button onClick={handleToggle} type="button" className="lg:hidden" >
-                {isMenuOpen ? <X aria-label="Close Menu" className=" w-7 h-7"></X> : <Menu className=" w-7  h-7" />}
+                {isMenuOpen ? <X aria-label="Close Menu" size={32} className="hover:-translate-y-[0.1rem] "></X> : <Menu className="hover:-translate-y-[0.1rem] " size={35}/>}
             </button>
            
             </div>
             {/* mobile menu */}
              {/* if mobile menu is open */}
-            {isMenuOpen &&  <div className=" w-[200px]  rounded-xl border-y absolute top-20 right-3 inset-x bg-white border-t shadow-xl lg:hidden
+            {isMenuOpen &&  <div className="  w-full  rounded-b-xl border-y absolute top-20  inset-x-0   bg-white border-t shadow-xl lg:hidden
              transform transition-all duration-200 ease-in-out z-90">
                 <nav className="flex flex-col   divide-y divide-gray-300">
                      <NavLink to="/listing" className="py-3 px-5 rounded-xl hover:bg-orange-100 hover:shadow-xl hover:text-orange-500 hover:font-bold hover:py-4">Find Your Basera</NavLink>
@@ -64,7 +65,10 @@ export default function Navbar() {
                     <NavLink className="py-3 px-5 rounded-xl hover:bg-orange-100 hover:shadow-x hover:text-orange-500 hover:font-bold hover:py-4  ">Contact</NavLink>
                     <NavLink to="/listing/add" className=" sm:hidden py-3 px-5 rounded-xl hover:bg-orange-100 hover:shadow-x hover:text-orange-500 hover:font-bold hover:py-4 ">Add Your Listings</NavLink>
                     {isAuthenticated? 
+                    <>
+                    <h1 className=" py-3 px-5 rounded-xl hover:bg-orange-100 hover:shadow-x hover:text-orange-500 hover:font-bold hover:py-4 ">My Account {user?.name ? "("+ user?.name +")" :  ""}</h1>
                     <div onClick={handleLogout} className=" lg::hidden py-3 px-5 rounded-xl hover:bg-orange-100 hover:shadow-x hover:text-orange-500 hover:font-bold  hover:py-4 " >Logout </div>
+                    </>
                     : null}
                 </nav>
             </div>

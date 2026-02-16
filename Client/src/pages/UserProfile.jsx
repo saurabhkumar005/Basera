@@ -16,7 +16,7 @@ export default function UserProfile() {
             if(user){
             try{
             const listings = await getMyListings();
-            setMyListings(listings);
+            setMyListings(listings || []);
             }catch(err){
                 console.log("error in fetching my Listings", err);
                 
@@ -41,10 +41,10 @@ export default function UserProfile() {
                 className=" w-full px-4 py-10  bg-cover relative bg-center bg-no-repeat flex justify-center items-center ">
                 <div className=" sm:p-5  flex  justify-evenly gap-4 sm:gap-10" >
                     {/* Profile image and name section */}
-                    <div className=" bg-gray-700 flex justify-center items-center relative  mt-3  w-44 h-44 lg:w-52 lg:h-52  rounded-full ">
+                    <div className="border-2 bg-gray-700 flex justify-center items-center relative  mt-3  w-44 h-44 lg:w-52 lg:h-52  rounded-full ">
                     {user?.avatarUrl ? <img className="  w-44 h-44 lg:w-52 lg:h-52  rounded-full  object-cover object-top"
                         src={user.avatarUrl} /> :
-                      <UserRoundPlus onClick={()=>setEditModal(true)} className=" hover:scale-104 pl-4 flex text-white   w-3/6 h-3/6" />
+                      <UserRoundPlus onClick={()=>setEditModal(true)} className="  hover:scale-104 pl-4 flex text-white   w-3/6 h-3/6" />
                     }
                     </div>
                     <div className="   flex flex-col  gap-5 w-[60%] md:w-[60vw] ">
@@ -57,7 +57,7 @@ export default function UserProfile() {
                         
                         <div className=" flex gap-4  items-center flex-wrap">
                             <button className="bg-white p-4 rounded-3xl">❤️{user?.favourites?.length || 0} Favorites</button>
-                            <button className="bg-white p-4 rounded-3xl">🏠{myListings.length} Listings </button>
+                            <button className="bg-white p-4 rounded-3xl">🏠{myListings?.length || 0} Listings </button>
                             <button className="bg-white p-4 rounded-3xl">💬 Messages</button>
                         </div>
                         <div className="flex gap-5 p-1 ">
@@ -74,7 +74,7 @@ export default function UserProfile() {
             <div className="p-5">
                 <h1 className="text-2xl font-bold text-orange-600 underline">My Listings</h1>
                 <div className="flex overflow-x-auto gap-5 p-3">
-                    {myListings.length>0 ? myListings.map((listing)=>(
+                    {myListings?.length>0 ? myListings.map((listing)=>(
                         <div key={listing._id} className="w-[270px] flex-shrink-0 "> 
                         <ListingCard  listing={listing}></ListingCard>
                         </div>

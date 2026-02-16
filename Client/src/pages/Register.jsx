@@ -4,15 +4,24 @@ import {Link, useNavigate} from 'react-router-dom'
 import {useState} from 'react'
 import { RegisterUser } from "../api/AuthApi.js";
 import { validateEmail, validateName, validatePassword, validatePhone } from "../utils/Validation.js";
+import {Camera, Trash, UserPlus, UserRoundPlus, SmilePlus} from 'lucide-react'
+
 export default function Register() {
     const inputStyle =  "w-full p-3 rounded-2xl bg-gray-200 border-2 border-gray-200 focus:outline-none  hover:border-orange-500 focus:border-orange-500 placeholder-gray-500 shadow-[inset_2px_3px_6px_rgba(0,0,0,0.4)] focus:shadow-[inset_2px_0px_4px_rgba(0,0,0,0.6)]";
     const [formData, setFormData] = useState({name:"", phone:"", email:"", password:""});
     const [globalError, setGlobalError] = useState("");
     const [validationError, setValidationError] = useState({});
-
-
+    const [preview, setPreview] = useState(null);
+    const [rawImage, setRawImage] = useState(null); 
     const navigate = useNavigate();
 
+    const handleImageChange = (e)=>{
+        const dp = e.target.files[0];
+        if(dp){
+            setRawImage(dp);
+            setPreview(URL.createObjectURL(dp));
+        }
+    }
     const handleChange = (e)=>{
         const {name,value} = e.target;
         setFormData((data)=>({...data, [name]:value}));
@@ -49,9 +58,14 @@ export default function Register() {
             setValidationError(newErrors);
             return;
         }
-
+        const userData = new FormData();
+        userData.append("name",formData.name);
+        userData.append("email", formData.email);
+        userData.append("phone", formData.phone);
+        userData.append("password", formData.password);
+        if(rawImage)userData.append("avatar",rawImage);
         try{
-            const res = await RegisterUser(formData);
+            const res = await RegisterUser(userData);
             navigate('/login');
         }catch(err){
             let backendError = err.response?.data?.message;
@@ -76,6 +90,24 @@ export default function Register() {
                         ‼️{globalError}‼️
                     </div>
                     } 
+
+                    {/* Photo upload  feature*/}
+                    <div className="relative flex justify-center">
+                        <div className="relative  w-28 h-28 rounded-full ">
+                        <label className=" border border-3 relative bg-gray-300 w-28 h-28 rounded-full  flex justify-center items-center  overflow-hidden ">
+                           {preview ? <img src={preview} className="object-top object-cover w-full h-full  "/> :
+                           <Camera className=" hover:scale-105" size={45}/>}
+                           <input onChange={handleImageChange} type="file" accept="image/*" className="hidden"/>
+                        </label>
+                        <label className="">
+                        <input onChange={handleImageChange} type="file" accept="image/*" className="hidden"/>
+                       <Camera className="absolute bottom-0 right-0 border rounded-full p-1 hover:scale-105 bg-orange-400 hover:bg-orange-500" size={34}/>
+                        </label>
+                        <Trash onClick={()=>{setRawImage(null); setPreview(null);}} className="absolute bottom-0 left-0 p-1 border rounded-full bg-orange-400 hover:bg-orange-500 hover:scale-105 " size={32}/>
+                        </div>
+                    </div>
+
+
                     {/* Register form */}
                     <form onSubmit={(e)=>{handleSubmit(e)}} 
                     className="text-lg text-gray-900 flex flex-col gap-2"

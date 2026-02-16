@@ -41,9 +41,9 @@ export default function EditProfile({onClose, user, onUpdate}) {
          onClose();
 
         }catch(err){
-            console.error("Update Profile failed: ",err.response.data.message);
+            // console.error("Update Profile failed: ",err.response.data.message);
             setGlobalError(err.response.data.message);
-            // alert("Failed to update profile. Please try again.");
+           
         }
     }
     
