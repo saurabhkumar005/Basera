@@ -5,8 +5,10 @@ import api from "../api/axiosInstance";
 
 
 
-export default function EditProfile({onClose, user}) {
-    const [userImage, setUserImage] = useState(user?avatarUrl || null);
+export default function EditProfile({onClose, user, onUpdate}) {
+    const [userImage, setUserImage] = useState(user?.avatarUrl || null);
+    const [globalError, setGlobalError] = useState(null);
+    const [deleteAvatar, setDeleteAvatar] = useState(false);
     const [rawImage, setRawImage] = useState(null);
     const [formData, setFormData] = useState({name: user?.name || "",
          email: user?.email || "", phone: user?.phone || ""});
@@ -14,6 +16,7 @@ export default function EditProfile({onClose, user}) {
         const dp = e.target.files[0];
         setRawImage(dp);
         if (dp) {
+            setDeleteAvatar(false);
             setUserImage(URL.createObjectURL(dp));
         }
     }
@@ -22,19 +25,25 @@ export default function EditProfile({onClose, user}) {
     }
     const handleSubmit = async(e)=>{
         e.preventDefault();
+        setGlobalError(null);
         const userData = new FormData();
         userData.append('name', formData.name);
         userData.append('email', formData.email);
         userData.append('phone', formData.phone);
+        userData.append('deleteAvatar', deleteAvatar);
         if(rawImage){
         userData.append('avatar',rawImage);
         }
         try{
-            api.patch('user/updateProfile', userData);
-            onClose();
+         const result = await api.patch('user/updateProfile', userData);
+         console.log("Updation done:" , result.data.user);
+         onUpdate(result.data.user);
+         onClose();
 
         }catch(err){
-            console.error("Update Profile failed: "+err.message);
+            console.error("Update Profile failed: ",err.response.data.message);
+            setGlobalError(err.response.data.message);
+            // alert("Failed to update profile. Please try again.");
         }
     }
     
@@ -73,17 +82,22 @@ export default function EditProfile({onClose, user}) {
                                     onChange={handleImageChange}
                                 />
                             </label>
-                            <div onClick={()=>{setUserImage(null);setRawImage(null);}} className='hover:scale-105 transform duration-200 ease-in-out absolute left-0 bottom-0 bg-orange-400 p-1 rounded-full '>
+                            <div onClick={()=>{setUserImage(null);setRawImage(null);setDeleteAvatar(true);}} className='hover:scale-105 transform duration-200 ease-in-out absolute left-0 bottom-0 bg-orange-400 p-1 rounded-full '>
                                 <Trash />
                             </div>
                         </div>
                     </div>
                 </div>
 
+
+                {/* error details */}
+                {globalError && <div className='text-red-500 text-center font-bold  '>Error: {globalError}</div>}
+
+
                 {/* user details */}
                 <form onSubmit={handleSubmit} className='px-6 space-y-5 '>
                 <InputGroup name={"name"} label={"Name"} icon={<User/>} onChange={handleFormData} placeholder={"Enter Your name"} value={formData.name}/>
-                 <InputGroup name={"email"} label={"Email"} icon={<Mail/>} onChange={handleFormData} placeholder={"Enter Your Email ID"} value={formData.email}/>
+                 {/* <InputGroup name={"email"} label={"Email"} icon={<Mail/>} onChange={handleFormData} placeholder={"Enter Your Email ID"} value={formData.email}/> */}
                   <InputGroup name={"phone"} label={"Phone Number"} icon={<Phone/>} onChange={handleFormData} placeholder={"Enter Your Phone Number"} value={formData.phone}/>
             <button type="submit" className='w-full p-2 text-gray-700 rounded-2xl font-bold text-lg bg-orange-500 hover:-translate-y-[0.1rem] transform duration-200 ease-in-out mb-6'>Save Changes </button>
                </form>

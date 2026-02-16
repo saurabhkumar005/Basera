@@ -8,7 +8,7 @@ import ListingCard from "../components/Listing/ListingCard";
 import { UserRound, UserRoundPen, UserRoundPlus } from 'lucide-react';
 import EditProfile from "../modals/EditProfile";
 export default function UserProfile() {
-    const { user, isAuthenticated } = useAuthContext();
+    const { user, isAuthenticated, setUser } = useAuthContext();
     const [myListings, setMyListings] = useState([]);
     const [isEditModalOpen, setEditModal] = useState(false);
     useEffect(()=>{
@@ -42,16 +42,16 @@ export default function UserProfile() {
                 <div className=" sm:p-5  flex  justify-evenly gap-4 sm:gap-10" >
                     {/* Profile image and name section */}
                     <div className=" bg-gray-700 flex justify-center items-center relative  mt-3  w-44 h-44 lg:w-52 lg:h-52  rounded-full ">
-                    {user.avatarUrl ? <img className="  w-44 h-44 lg:w-52 lg:h-52  rounded-full  object-cover object-center"
+                    {user?.avatarUrl ? <img className="  w-44 h-44 lg:w-52 lg:h-52  rounded-full  object-cover object-top"
                         src={user.avatarUrl} /> :
-                      <UserRoundPlus onClick={()=>setEditModal(true)} className=" hover:scale-104 pl-4 flex text-gray-400   w-3/6 h-3/6" />
+                      <UserRoundPlus onClick={()=>setEditModal(true)} className=" hover:scale-104 pl-4 flex text-white   w-3/6 h-3/6" />
                     }
                     </div>
                     <div className="   flex flex-col  gap-5 w-[60%] md:w-[60vw] ">
                         <div className=" text-white font-bold flex flex-col gap-1">
-                            <h2 className="text-4xl font-bold ">{user.name}</h2>
-                            <h3 className="">{user.email}</h3>
-                            <h3 >{user.phone}</h3>
+                            <h2 className="text-4xl font-bold ">{user?.name}</h2>
+                            <h3 className="">{user?.email}</h3>
+                            <h3 >{user?.phone}</h3>
                             <div className="">Member Since {formatDate(user?.createdAt)}</div>
                         </div>
                         
@@ -98,7 +98,7 @@ export default function UserProfile() {
                 </div>
             </div>
                 
-               {isEditModalOpen && <EditProfile user={user} onClose={()=>setEditModal(false)}/>}
+               {isEditModalOpen && <EditProfile user={user} onClose={()=>setEditModal(false)} onUpdate={setUser}/>}
           
             
         </>
