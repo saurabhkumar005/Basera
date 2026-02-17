@@ -41,7 +41,7 @@ export default function UserProfile() {
                 className=" w-full px-4 py-10  bg-cover relative bg-center bg-no-repeat flex justify-center items-center ">
                 <div className=" sm:p-5  flex  justify-evenly gap-4 sm:gap-10" >
                     {/* Profile image and name section */}
-                    <div className="border-2 bg-gray-700 flex justify-center items-center relative  mt-3  w-44 h-44 lg:w-52 lg:h-52  rounded-full ">
+                    <div className="border-orange-400 border-2 bg-gray-700 flex justify-center items-center relative  mt-3  w-44 h-44 lg:w-52 lg:h-52  rounded-full ">
                     {user?.avatarUrl ? <img className="  w-44 h-44 lg:w-52 lg:h-52  rounded-full  object-cover object-top"
                         src={user.avatarUrl} /> :
                       <UserRoundPlus onClick={()=>setEditModal(true)} className="  hover:scale-104 pl-4 flex text-white   w-3/6 h-3/6" />

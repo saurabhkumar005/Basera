@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { addListing } from '../api/ListingData.js';
-
+import {CloudUpload, UploadCloud, X}  from "lucide-react";
 
 export default function AddListing() {
     const amenitiesOptions = [
@@ -17,11 +17,44 @@ export default function AddListing() {
     const [posted, setPosted] = useState(false);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [images, setImages] = useState([]);
+    const [previews, setPreviews] = useState([]);
+
     const [formData, setFormData] = useState({
         title: "", listingType: "Room", city: "", address: "",
         price: "", sharingType: "", amenities: [], rules: [],
         contactNumber: ""
     });
+
+
+    //cleanup of url whenever user leaves the page or reloads
+    useEffect(()=>{
+        return ()=>(previews.forEach(url=>URL.revokeObjectURL(url)));
+    }, [])
+
+    const handleImageChange = (e)=>{
+        const files = Array.from(e.target.files);
+        if(files.length + images.length >5){
+            setError("You can only upload a maximum of 5 images.")
+           
+            return;
+        }
+        const newPreviews = files.map((file)=>URL.createObjectURL(file));
+        setImages(prev => [...prev, ...files]);
+        setPreviews(prev => [...prev, ...newPreviews]);
+        setError("");
+        e.target.value="";
+
+    }
+
+    const handleRemoveImage = (index)=>{
+        setImages(prev=> prev.filter((_,i)=>i!==index));
+        setPreviews(prev=>{
+            URL.revokeObjectURL(prev[index]); //freeing memory taken by URL of previews in RAM
+            return prev.filter((_,i)=>i!==index);
+        }
+        )
+    }
 
     const handleChange = (e) => {
         const { value, name } = e.target;
@@ -44,17 +77,42 @@ export default function AddListing() {
         e.preventDefault();
         setLoading(true);
         setError('');
+
+        if (images.length === 0) {
+            setError("Please upload at least one image of your property.");
+            window.scrollTo(0, 0);
+            return; // Stop function here
+        }
+
         setPosted(false);
+        
+        const userData = new FormData();
+        // appending all values of form data one by one in form of key value pairs
+
+        Object.keys(formData).forEach((key)=>{
+            if(Array.isArray(formData[key])){
+                formData[key].forEach(val=>userData.append(key, val));
+            }else{
+                formData.append(key, formData[key]);
+            }
+        });
+
+        // appending all photos 
+        images.forEach(item=>userData.append('listingImages', item));
+
 
         try {
-            const res = await addListing(formData);
+            const res = await addListing(userData);
             // console.log("Listing posted Succesfully: " + res.data);
             setPosted(true);
+            setImages([]);
+            setPreviews([]);
             setFormData({
         title: "", listingType: "Room", city: "", address: "",
         price: "", sharingType: "", amenities: [], rules: [],
         contactNumber: ""
     });
+    window.scrollTo(0,0);
         }
         catch (err) {
             // console.log("Error caught in posting new listing: " + err);
@@ -73,7 +131,8 @@ const inputStyle =  "w-full p-3 rounded-3xl focus:bg-gray-100 border-3 border-or
                 </div>
 
                 {error && <div className='text-center text-red-500 text-lg font-bold p-3'>
-                    ‼️Error Caught: { error}‼️
+                    ‼️Error : { error}‼️
+                    {  window.scrollTo(0,0)}
                 </div>}
                 {posted && <div className='text-center text-green-600 text-lg font-bold p-3'>
                     ✅ Listing Added Successfully: {formData.title}
@@ -220,6 +279,26 @@ const inputStyle =  "w-full p-3 rounded-3xl focus:bg-gray-100 border-3 border-or
                                         <span className='text-gray-700'>{opt}</span>
                                     </div>
                                 ))}
+                            </div>
+
+                            {/* Listing Image add section  */}
+                            <div className='mt-3 '>
+                                <label className='font-bold text-gray-700  mb-2 block'> Upload Listing Photos</label>
+                                <div className='flex justify-start gap-3 flex-wrap'>
+                                    { images.length<5 && <label className='group ml-2 border rounded-xl  w-32 h-28 flex flex-col justify-center items-center bg-white  hover:border-orange-400 hover:border-3 border-dashed '>
+                                        <UploadCloud size={40} className='group-hover:text-orange-400 hover:-translate-y-[0.1em]'/>
+                                        <span className='text-sm group-hover:text-orange-400 hover:font-bold'> Click to Upload</span>
+                                        <input onChange={handleImageChange} type='file' multiple accept="image/*" className='hidden '/>
+                                    </label>
+                                    }
+                                    {previews.map((prv, index)=>(
+                                    <div className='w-32 h-28 flex justify-center items-center relative' key={index}>
+                                        <img className='w-full h-full rounded-2xl object-cover ' src={prv} alt="preview"/>
+                                        <X className='top-0 absolute right-0 text-white m-1 hover:-translate-y-[0.1rem]' onClick={()=>handleRemoveImage(index)}/>
+                                    </div>
+                                ))}
+                                </div>
+                                
                             </div>
                             <div className=' w-full   flex justify-center mt-4 '>
                                 <button

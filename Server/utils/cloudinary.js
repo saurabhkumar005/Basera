@@ -16,7 +16,9 @@ cloudinary.config({
 const uploadToCloudinary = (fileBuffer, fileName) => {
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
-      { folder: 'profile_pictures', public_id: fileName, overwrite: true, invalidate: true, resource_type: 'image' }, // Optional to Organize in a folder
+      { folder: 'profile_pictures', public_id: fileName, overwrite: true, invalidate: true, resource_type: 'image',
+        transformation: [{ width: 1280, crop: "limit" },  { quality: "auto" }, { fetch_format: "auto" }]
+       }, 
       (error, result) => {
         if (error) return reject(error);
         resolve(result);
