@@ -1,17 +1,17 @@
 import ListingCard from "../components/Listing/ListingCard"
 import SearchBar from "../components/Layout/SearchBar.jsx"
-import getListing,{  mockImages, mockListings } from '../api/ListingData.js';
+import getListing from '../api/ListingData.js';
 import { useState, useEffect } from "react";
 
 export default function Listing(){
     const [loading, setLoading] = useState(false);
-    const [listingData, setListingData]= useState(mockListings);
+    const [listingData, setListingData]= useState([]);
     useEffect(()=>{
         const fetchListings = async()=>{
             setLoading(true);
             try{
             const data = await getListing();
-            const modifiedData = data.map(item=>({...item, image: item.image || mockImages[Math.floor(Math.random()*mockImages.length)] })).reverse();
+            const modifiedData = data.reverse();
             setListingData([ ...modifiedData, ...listingData]);
             } catch(err){
                 console.error("Failed to fetch listing data from server: "+err);

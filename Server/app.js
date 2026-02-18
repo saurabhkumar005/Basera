@@ -6,11 +6,17 @@ import mongoose from 'mongoose'
 import listingRoutes from './routes/listingRoute.js'
 import authRoutes from './routes/authRoutes.js'
 import userRoutes from './routes/userRoutes.js'
-
+import multer from "multer";
 dotenv.config();
+
 
 const app = express();
 const PORT = process.env.PORT || 8080;
+
+app.get('/pingBasera',  (req,res)=>{
+    res.send("Basera is live!")
+})
+
 
 //middlewares
 app.use(cors());
@@ -41,6 +47,17 @@ app.get('/',(req, res)=>{
 })
 
 
+
+app.use((err, req,res, next)=>{
+    if(err instanceof multer.MulterError){
+        if(err.code === 'LIMIT_FILE_SIZE'){
+            return res.status(400).json({message: "Image size is too large! Maximum size allowed is 5MB."})
+        }
+        return res.status(400).json({message: err.message});
+    }
+    if(err){return res.status(500).json({message: err.message || "Internal Server Error"});}
+    next();
+});
 
 app.listen(PORT, ()=>{console.log(`Server started on ${PORT}`)})
 

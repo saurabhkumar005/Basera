@@ -1,16 +1,26 @@
 import User from '../models/User.js'
 import bcrypt from 'bcrypt' 
 import jwt from 'jsonwebtoken'
+import uploadToCloudinary from '../utils/cloudinary.js';
+import mongoose from 'mongoose' 
+
+
 //register a new user
 const register = async(req, res)=>{
     try{
-        const {name, password, email, avatarUrl, phone, favourites} = req.body;
+        const {name, password, email, phone} = req.body;
         let user = await User.findOne({email});
         if(user){
             return res.status(400).json({message: "User already exists! Login Please..."})
         };
-
-        let newUser = new User({name, email, password, avatarUrl, phone, favourites });
+        const newUserId = new mongoose.Types.ObjectId();
+        let avatarUrl="";
+        if(req.file){
+            const fileName = `avatar_${newUserId}`
+            const uploadResult = await uploadToCloudinary(req.file.buffer, fileName);
+            avatarUrl = uploadResult.secure_url;
+        }
+        const newUser = new User({_id: newUserId, name, email, password, avatarUrl, phone });
         await newUser.save();
         res.status(201).json({message : 'User registered successfully'});
 

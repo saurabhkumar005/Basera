@@ -25,7 +25,7 @@ const routes = createBrowserRouter(
 
       <Route element={<ProtectedRoute/>}>
         <Route path="/listing/add" element={<AddListing/>}/>
-        <Route path="/profile" element={<UserProfile/>}></Route>
+        <Route path="/profile/:id?" element={<UserProfile/>}></Route>
       </Route>
 
 
