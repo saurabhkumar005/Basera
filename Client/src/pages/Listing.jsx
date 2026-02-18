@@ -19,6 +19,9 @@ export default function Listing(){
         }
         fetchListings();
     },[]);
+
+    if(loading)return <div className="h-180 w-full flex justify-center items-center text-orange-400 text-2xl ">Fetching Listings in less than a minutes...</div>
+      if(listingData.length==0)return <div className="h-180 w-full flex justify-center items-center text-orange-400 text-2xl ">No Listing added yet!</div>
     return (
        <div>
         <div className="bg-orange-100 w-[100vw] h-28 flex justify-center items-center">
