@@ -9,8 +9,14 @@ import userRoutes from './routes/userRoutes.js'
 import multer from "multer";
 dotenv.config();
 
+
 const app = express();
 const PORT = process.env.PORT || 8080;
+
+app.get('/pingBasera',  (req,res)=>{
+    res.send("Basera is live!")
+})
+
 
 //middlewares
 app.use(cors());
@@ -39,6 +45,8 @@ const DB = connectDB();
 app.get('/',(req, res)=>{
     res.json({"data":"Backend server is working"})
 })
+
+
 
 app.use((err, req,res, next)=>{
     if(err instanceof multer.MulterError){
