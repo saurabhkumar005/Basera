@@ -1,19 +1,25 @@
 import ListingCard from "../Listing/ListingCard"
-import getListings, { mockListings, mockImages } from "../../api/ListingData.js"
+import getListings from "../../api/ListingData.js"
 import { useState, useEffect } from 'react'
 export default function FeaturedListings() {
     //TODO: apply useContext for better state management and avoid slowness due to repetitive same api call
-    const [listings, setListing] = useState(mockListings);
+    const [listings, setListing] = useState([]);
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
        
             const getListingFromDB = async () => {
+                setLoading(true);
                 const data = await getListings();
-                const res = data.map((item)=>({...item, image: item.image || mockImages[Math.floor(Math.random()*mockImages.length)]}));
+                const res = data.reverse().slice(0,data.length<10? data.length : 10);
                 setListing([...res,...listings]);
+                setLoading(false);
             }
        
         getListingFromDB();
     }, []);
+
+    if(loading)return <h1 className="text-xl text-orange-600 flex items-center justify-center w-full h-30 ">Loading Featured Near You...</h1>
     
 
     return (

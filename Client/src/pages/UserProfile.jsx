@@ -9,11 +9,9 @@ import { UserRound, UserRoundPen, UserRoundPlus } from 'lucide-react';
 import EditProfile from "../modals/EditProfile";
 import ChatOnWhatsapp from "../utils/ChatOnWhatsapp";
 import {MessageCircleMore} from "lucide-react"
-import { useParams } from "react-router-dom";
 
 export default function UserProfile() {
     const { user, isAuthenticated, setUser } = useAuthContext();
-    const {id} = useParams();
     const [myListings, setMyListings] = useState([]);
     const [isEditModalOpen, setEditModal] = useState(false);
     useEffect(()=>{

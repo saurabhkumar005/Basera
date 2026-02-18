@@ -36,7 +36,7 @@ export default function ListingDetails() {
                 <div className="flex flex-col gap-2 lg:w-[58%]  ">
                     {mainImage? <img className=" border border-slate-300 w-full h-96 object-cover rounded-xl h-[65%] lg:h-[80%]"
                         src={mainImage} alt="main listing" />
-                        : <span className="text-gray-400">No Image Available</span>
+                        : <span className="text-gray-400 pt-2 text-center w-full">No Image Available</span>
                     }
                     <div className="p-1 flex flex- gap-2 overflow-x-auto">
                         {listing?.listingPhotos?.map((ele, idx) => (
