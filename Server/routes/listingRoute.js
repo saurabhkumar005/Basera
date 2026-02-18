@@ -1,6 +1,8 @@
 import express from 'express'
 import { getListing, addListing, deleteListing, updateListing, getMyListing, getListingById, countMyListing } from '../controllers/listingController.js';
 import authMiddleware from '../middleware/authMiddleware.js'
+import upload from '../middleware/multer.js';
+
 const router = express.Router();
 //we use  express.Router() to use express app in separate files for separate routes
 
@@ -15,7 +17,7 @@ router.get('/:id', getListingById);
 // A request hits /api/listings -> // Express runs authMiddleware before the controller.
 // If token is valid → proceeds to addListing().
 // If token is missing/invalid → stops there and sends 401/403.
-router.post('/', authMiddleware, addListing);
+router.post('/', authMiddleware, upload.array("listingImages",6) , addListing);
 router.delete('/:id',authMiddleware,deleteListing);
 //using put to update because , patch is used to update some part of document(Used for small updates (like changing one or two fields). )
 //  where as put is used to replace whole doocument(Used when you want to send all fields (complete object update))

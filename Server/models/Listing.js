@@ -5,11 +5,12 @@ const listingSchema= mongoose.Schema({
     listingType : {type : String, required: true},
     city : {type: String, required: true, index: true},
     address : {type: String, required: true},
-    price : {type: String, required: true},
+    price : {type: Number, required: true},
     sharingType : {type : String, required : true},
     amenities : [String],
     rules: [String],
     contactNumber : String,
+    listingPhotos: {type:[String], default:[]},
     owner : { type: mongoose.Schema.Types.ObjectId, ref : 'User', required: true}
 }, {timestamps : true });
 //timestamps : true will store createdAt and updatedAt times

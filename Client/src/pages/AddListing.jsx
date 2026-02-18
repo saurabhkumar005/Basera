@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { addListing } from '../api/ListingData.js';
-import {CloudUpload, UploadCloud, X}  from "lucide-react";
+import {CloudUpload, UploadCloud, X, IndianRupee,  Phone, MapPin}  from "lucide-react";
 
 export default function AddListing() {
     const amenitiesOptions = [
@@ -22,7 +22,7 @@ export default function AddListing() {
 
     const [formData, setFormData] = useState({
         title: "", listingType: "Room", city: "", address: "",
-        price: "", sharingType: "", amenities: [], rules: [],
+        price: null, sharingType: "", amenities: [], rules: [],
         contactNumber: ""
     });
 
@@ -58,6 +58,16 @@ export default function AddListing() {
 
     const handleChange = (e) => {
         const { value, name } = e.target;
+            
+         if (name === "contactNumber") {
+        // Regex /^\d*$/ means "Start to end, only digits allowed"
+        if (!/^\d*$/.test(value)) {
+            return; 
+        }
+    }
+        if (name === "price") {
+            if (value < 0) return;
+        }
         setFormData({ ...formData, [name]: value });
     }
 
@@ -83,7 +93,13 @@ export default function AddListing() {
             window.scrollTo(0, 0);
             return; // Stop function here
         }
-
+       
+        if(formData.contactNumber.length<10){
+               window.scrollTo(0, 0);
+               setLoading(false);
+            setError("Please enter valid contact number of length 10.");
+            return;
+        }
         setPosted(false);
         
         const userData = new FormData();
@@ -93,7 +109,7 @@ export default function AddListing() {
             if(Array.isArray(formData[key])){
                 formData[key].forEach(val=>userData.append(key, val));
             }else{
-                formData.append(key, formData[key]);
+                userData.append(key, formData[key]);
             }
         });
 
@@ -121,7 +137,7 @@ export default function AddListing() {
             setLoading(false);
         }
     }
-const inputStyle =  "w-full p-3 rounded-3xl focus:bg-gray-100 border-3 border-orange-200 focus:outline-none  hover:border-orange-400 focus:border-orange-500 placeholder-gray-500 shadow-[inset_3px_2px_6px_rgba(0,0,0,0.4)] focus:shadow-[inset_2px_0px_4px_rgba(0,0,0,0.6)]";
+const inputStyle =  "p-3 w-full  rounded-3xl focus:bg-gray-100 border-3 border-orange-200 focus:outline-none  hover:border-orange-400 focus:border-orange-500 placeholder-gray-500 shadow-[inset_3px_2px_6px_rgba(0,0,0,0.4)] focus:shadow-[inset_2px_0px_4px_rgba(0,0,0,0.6)]";
     return (
 
         <div className="flex justify-center items-center w-[100vw]  ">
@@ -185,29 +201,35 @@ const inputStyle =  "w-full p-3 rounded-3xl focus:bg-gray-100 border-3 border-or
                     {/* Address */}
                     <div className="flex  gap-1 text-lg flex-col">
                         <label htmlFor="address" className='font-bold  text-gray-700' >Address </label>
+                        <div className={` ${inputStyle} flex `}>
+                               <MapPin className='mr-1'/>
                         <input
                             required
                             type="text"
                             name="address"
                             placeholder='eg., 101, BK Apartement, Near Ambani Villa'
-                            className={inputStyle}
+                            className={"w-full h-full outline-none "}
                             onChange={handleChange}
                             value={formData.address}
                         />
+                        </div>
                     </div>
 
                     {/* price  and sharing type ad contact number*/}
                     <div className='flex gap-3 w-full flex-col md:flex-row'>
                         <div className="flex  gap-1 text-lg flex-col w-full">
                             <label htmlFor="price" className='font-bold  text-gray-700' >Price </label>
+                            <div className={` ${inputStyle} flex `}>
+                               <IndianRupee className='mr-1'/>
                             <input
-                                type="text"
+                                type="number"
                                 name="price"
-                                placeholder='Enter price per month. i.e, 5000, 6000, 30000'
-                                className={inputStyle}
+                                placeholder='Enter price per month i.e, 5000, 6000, 30000, etc.'
+                                className="w-full h-full outline-none  "
                                 onChange={handleChange}
                                 value={formData.price}
                             />
+                            </div>
                         </div>
                         <div className='flex flex-col gap-1  '>
                             <label htmlFor="sharingType"
@@ -223,17 +245,21 @@ const inputStyle =  "w-full p-3 rounded-3xl focus:bg-gray-100 border-3 border-or
                                 <option className=' border rounded-2xl bg-orange-200' value="Dormatory" >Dormatory(5+)</option>
                             </select>
                         </div>
+
                         {/* contact number */}
                         <div className="flex  gap-1 text-lg flex-col w-full">
-                            <label htmlFor="contactNumber" className='font-bold  text-gray-700' >Contact Number </label>
+                            <label htmlFor="contactNumber" className='font-bold  text-gray-700' >Contact Number (Preferably Whatsapp) </label>
+                            <div className={` ${inputStyle} flex `}>
+                               <Phone className='mr-2'/>
                             <input
                                 type="text"
                                 name="contactNumber"
-                                placeholder='eg. +91987654321'
-                                  className={`${inputStyle} `}
+                                placeholder='Enter 10 digit Contact/Whatsapp number. eg. 987654321'
+                                  className={` w-full h-full outline-none `}
                                 onChange={handleChange}
                                 value={formData.contactNumber}
                             />
+                            </div>
                         </div>
                     </div>
 
@@ -247,6 +273,8 @@ const inputStyle =  "w-full p-3 rounded-3xl focus:bg-gray-100 border-3 border-or
                                     <div key={opt} className='flex gap-2'>
                                         <input
                                             type="checkbox"
+                                            name={opt}
+                                            id={opt}
                                             value={opt}
                                             checked={formData.amenities.includes(opt)}
                                             onChange={(e) => { handleCheckboxChange(e, 'amenities') }}
@@ -254,7 +282,7 @@ const inputStyle =  "w-full p-3 rounded-3xl focus:bg-gray-100 border-3 border-or
                                             
 
                                         />
-                                        <span className='text-gray-700'>{opt}</span>
+                                        <label htmlFor={opt} className='text-gray-700'>{opt}</label>
                                     </div>
                                 ))}
                             </div>
@@ -270,20 +298,22 @@ const inputStyle =  "w-full p-3 rounded-3xl focus:bg-gray-100 border-3 border-or
                                     <div key={opt} className='flex gap-2 '>
                                         <input
                                             type="checkbox"
+                                            name={opt}
+                                            id={opt}
                                             value={opt}
                                             checked={formData.rules.includes(opt)}
                                             onChange={(e) => { handleCheckboxChange(e, 'rules') }}
                                             className='border-2 accent-orange-300 cursor-pointer w-5'
 
                                         />
-                                        <span className='text-gray-700'>{opt}</span>
+                                        <label htmlFor={opt} className='text-gray-700'>{opt}</label>
                                     </div>
                                 ))}
                             </div>
 
                             {/* Listing Image add section  */}
                             <div className='mt-3 '>
-                                <label className='font-bold text-gray-700  mb-2 block'> Upload Listing Photos</label>
+                                <label className='font-bold text-gray-700  mb-2 block'> Upload Listing Photos (Min 1, Max 5)</label>
                                 <div className='flex justify-start gap-3 flex-wrap'>
                                     { images.length<5 && <label className='group ml-2 border rounded-xl  w-32 h-28 flex flex-col justify-center items-center bg-white  hover:border-orange-400 hover:border-3 border-dashed '>
                                         <UploadCloud size={40} className='group-hover:text-orange-400 hover:-translate-y-[0.1em]'/>

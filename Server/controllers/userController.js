@@ -37,7 +37,19 @@ export const getProfile = async(req, res)=>{
 //update user profile details
 export const updateProfile = async(req,res)=>{
     try{
+
         const {name, email, phone, deleteAvatar} = req.body;
+         if (!/^\d+$/.test(phone)) {
+            return res.status(400).json({
+                message: "Invalid contact number. It must contain only digits (0-9)."
+            });
+        }
+
+        if (phone.length < 10 || phone.length > 15) {
+            return res.status(400).json({
+                message: "Contact number should be of minimum length 10."
+            });
+        }
         let updatedData = {name, email, phone};
         if(req.file){
             const fileName = `avatar_${req.user.userId}`

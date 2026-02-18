@@ -7,8 +7,13 @@ import { useState, useEffect } from "react";
 import ListingCard from "../components/Listing/ListingCard";
 import { UserRound, UserRoundPen, UserRoundPlus } from 'lucide-react';
 import EditProfile from "../modals/EditProfile";
+import ChatOnWhatsapp from "../utils/ChatOnWhatsapp";
+import {MessageCircleMore} from "lucide-react"
+import { useParams } from "react-router-dom";
+
 export default function UserProfile() {
     const { user, isAuthenticated, setUser } = useAuthContext();
+    const {id} = useParams();
     const [myListings, setMyListings] = useState([]);
     const [isEditModalOpen, setEditModal] = useState(false);
     useEffect(()=>{
@@ -58,11 +63,12 @@ export default function UserProfile() {
                         <div className=" flex gap-4  items-center flex-wrap">
                             <button className="bg-white p-4 rounded-3xl">❤️{user?.favourites?.length || 0} Favorites</button>
                             <button className="bg-white p-4 rounded-3xl">🏠{myListings?.length || 0} Listings </button>
-                            <button className="bg-white p-4 rounded-3xl">💬 Messages</button>
+                            <button onClick={()=>(ChatOnWhatsapp(user?.phone))} className=" flex gap-3 bg-white py-4 px-2   rounded-3xl hover:border hover:border-green-400 hover:border-2 text-green-500 hover:bg-green-400 hover:text-white"><MessageCircleMore/>Whatsapp</button>
                         </div>
                         <div className="flex gap-5 p-1 ">
-                            <button onClick={()=>{setEditModal(true)}} className="bg-orange-600 px-4 py-2  text-white  rounded-md">Edit Profile</button>
-                            <button className="bg-orange-600 px-3 py-2 text-white   rounded-md">Change Password</button>
+                            <button onClick={()=>{setEditModal(true)}} className="bg-orange-600 hover:bg-orange-500 px-4 py-2  text-white  rounded-md hover:-translate-y-[0.1rem]">Edit Profile</button>
+                            <button className=" bg-gray-400 px-3 py-2 text-white   rounded-md " 
+                            title="Coming Soon">Change Password</button>
                           
                         </div>
                           

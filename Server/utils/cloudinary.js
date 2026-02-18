@@ -13,12 +13,23 @@ cloudinary.config({
 });
 
 
-const uploadToCloudinary = (fileBuffer, fileName) => {
+const uploadToCloudinary = (fileBuffer, fileName=null) => {
   return new Promise((resolve, reject) => {
-    const uploadStream = cloudinary.uploader.upload_stream(
-      { folder: 'profile_pictures', public_id: fileName, overwrite: true, invalidate: true, resource_type: 'image',
+    const options = { invalidate: true, resource_type: 'auto',
         transformation: [{ width: 1280, crop: "limit" },  { quality: "auto" }, { fetch_format: "auto" }]
-       }, 
+       }
+
+       if(fileName){
+        options.public_id = fileName;
+        options.folder = "profile_pictures";
+        options.overwrite = true;
+       }else{
+        //if this is listing images
+        options.folder = "listing_pictures"
+       }
+
+    const uploadStream = cloudinary.uploader.upload_stream(
+      options, 
       (error, result) => {
         if (error) return reject(error);
         resolve(result);
