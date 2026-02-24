@@ -9,8 +9,6 @@
 * **Image Upload**: Integrated with **Cloudinary** for seamless multi-image uploads.
 * **Direct Contact**: "Chat on WhatsApp" feature to instantly connect tenants with owners.
 * **Responsive UI**: Built with **React** and **Tailwind CSS** for a mobile-friendly experience.
-
-* **Coming Soon**
 * **Smart Search**: Filter properties by city, type (Flat, Room, PG), and price.
 * **Favorites/Wishlist**: Save properties to view later (In Progress).
 
@@ -67,4 +65,5 @@ This project is licensed under the MIT License.
 ---
 
 *Made with ❤️ by Saurabh Kumar*
+
 
