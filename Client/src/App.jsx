@@ -1,13 +1,20 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "./components/Layout/Navbar.jsx";
-export default function App(){
-  return(
+import Footer from "./components/Layout/Footer.jsx";
+
+const FOOTER_ROUTES = ['/', '/listing'];
+
+export default function App() {
+  const { pathname } = useLocation();
+  const showFooter = FOOTER_ROUTES.includes(pathname);
+
+  return (
     <>
-    <Navbar/>
-    <main className=" ">
-    <Outlet/>
-    </main>
-    {/* <h1 className="w-full h-20 rounded-t-3xl  text-xl flex justify-center items-center bg-orange-400">Footer Coming soon...</h1> */}
+      <Navbar />
+      <main>
+        <Outlet />
+      </main>
+      {showFooter && <Footer />}
     </>
   )
 }

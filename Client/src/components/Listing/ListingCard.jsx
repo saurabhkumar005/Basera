@@ -1,12 +1,15 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useState, useEffect, useRef } from "react"
 import { Heart } from "lucide-react"
 import chatOnWhatsapp from "../../utils/ChatOnWhatsapp.js"
+import { useAuthContext } from "../../context/AuthContext"
 
-export default function ListingCard({ listing, userFavourites = [], onToggleFavourite }) {
-    const isFav = userFavourites.includes(listing._id?.toString());
+export default function ListingCard({ listing }) {
+    const { favouriteIds, toggleFavourite, isAuthenticated } = useAuthContext();
+    const navigate = useNavigate();
+    const isFav = favouriteIds.has(listing._id?.toString());
+
     const hasMultiplePhotos = listing?.listingPhotos?.length > 1;
-
     const [currentImgIdx, setCurrentImgIdx] = useState(0);
     const intervalRef = useRef(null);
 
@@ -25,14 +28,13 @@ export default function ListingCard({ listing, userFavourites = [], onToggleFavo
         setCurrentImgIdx(0);
     };
 
-    useEffect(() => {
-        return () => stopSlideshow();
-    }, []);
+    useEffect(() => () => stopSlideshow(), []);
 
     const handleHeartClick = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        if (onToggleFavourite) onToggleFavourite(listing._id);
+        if (!isAuthenticated) { navigate('/login'); return; }
+        toggleFavourite(listing._id);
     };
 
     const handleWhatsApp = (e) => {
@@ -75,10 +77,7 @@ export default function ListingCard({ listing, userFavourites = [], onToggleFavo
                 {hasMultiplePhotos && (
                     <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
                         {listing.listingPhotos.map((_, i) => (
-                            <span
-                                key={i}
-                                className={`block w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === currentImgIdx ? 'bg-white w-3' : 'bg-white/50'}`}
-                            />
+                            <span key={i} className={`block h-1.5 rounded-full transition-all duration-300 ${i === currentImgIdx ? 'bg-white w-3' : 'bg-white/50 w-1.5'}`} />
                         ))}
                     </div>
                 )}
@@ -89,10 +88,7 @@ export default function ListingCard({ listing, userFavourites = [], onToggleFavo
                     aria-label="Toggle Favourite"
                     className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center rounded-full bg-white/80 backdrop-blur-sm shadow hover:scale-110 transition-transform duration-200"
                 >
-                    <Heart
-                        size={16}
-                        className={isFav ? 'text-red-500 fill-red-500' : 'text-gray-400 fill-none'}
-                    />
+                    <Heart size={16} className={isFav ? 'text-red-500 fill-red-500' : 'text-gray-400 fill-none'} />
                 </button>
             </div>
 
