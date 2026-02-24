@@ -66,18 +66,16 @@ export default function UserProfile() {
 
     return (
         <>
-            {/* Hero Section */}
+         {/* my accoun info */}
             <div style={{ backgroundImage: `url(${profileBG})` }}
                 className="w-full px-4 py-10 bg-cover bg-center bg-no-repeat flex justify-center items-center">
                 <div className="sm:p-5 flex justify-evenly gap-4 sm:gap-10">
-                    {/* Avatar */}
                     <div className="border-orange-400 border-2 bg-gray-700 flex justify-center items-center relative mt-3 w-44 h-44 lg:w-52 lg:h-52 rounded-full">
                         {user?.avatarUrl
                             ? <img className="w-44 h-44 lg:w-52 lg:h-52 rounded-full object-cover object-top" src={user.avatarUrl} alt="Avatar" />
                             : <UserRoundPlus onClick={() => setEditModal(true)} className="hover:scale-104 pl-4 flex text-white w-3/6 h-3/6 cursor-pointer" />
                         }
                     </div>
-                    {/* Info */}
                     <div className="flex flex-col gap-5 w-[60%] md:w-[60vw]">
                         <div className="text-white font-bold flex flex-col gap-1">
                             <h2 className="text-4xl font-bold">{user?.name}</h2>

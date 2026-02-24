@@ -8,7 +8,6 @@ export default function Footer() {
         <footer className="bg-gray-900 text-gray-300">
             <div className="max-w-screen-xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-10">
 
-                {/* Brand */}
                 <div className="flex flex-col gap-3">
                     <img src={Logo} alt="Basera" className="h-14 w-auto object-contain " />
                     <p className="text-sm text-gray-400 leading-relaxed">
@@ -16,7 +15,6 @@ export default function Footer() {
                     </p>
                 </div>
 
-                {/* Quick Links */}
                 <div>
                     <h3 className="text-white font-semibold text-base mb-4">Quick Links</h3>
                     <ul className="flex flex-col gap-3 text-sm">
@@ -38,7 +36,6 @@ export default function Footer() {
                     </ul>
                 </div>
 
-                {/* Tagline / Social */}
                 <div>
                     <h3 className="text-white font-semibold text-base mb-4">Connect</h3>
                     <div className="flex gap-4">

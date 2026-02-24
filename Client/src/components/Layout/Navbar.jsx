@@ -46,17 +46,12 @@ export default function Navbar() {
         <header ref={menuRef} className="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm">
             <div className="px-5 h-20 flex justify-between items-center max-w-screen-2xl mx-auto">
 
-                {/* Logo */}
                 <NavLink className="max-w-[200px] h-16 block" to="/" onClick={closeMenu}>
                     <img src={Logo} className="h-full w-full object-contain" alt="Basera Logo" />
                 </NavLink>
-
-                {/* Desktop Nav */}
                 <div className="hidden lg:flex items-center gap-8">
                     <NavLink to='/listing' className={navLinkClass}>Find Your Basera</NavLink>
                 </div>
-
-                {/* Desktop Actions */}
                 <div className="flex gap-4 items-center">
                     <NavLink
                         to="/listing/add"
@@ -64,7 +59,6 @@ export default function Navbar() {
                     >
                         + Add Listing
                     </NavLink>
-
                     {!isAuthenticated ? (
                         <NavLink
                             to="/login"
