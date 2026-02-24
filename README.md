@@ -58,12 +58,17 @@ basera/
 * [ ] Advance token payment system to book the property. 
 
 
-## 📄 License
+## ⚖️ Copyright & License
 
-This project is licensed under the MIT License.
+**Copyright (c) 2026 Saurabh Kumar. All Rights Reserved.**
+
+This project, **Basera**, including all of its source code, database architecture, and UI/UX design, is the exclusive intellectual property of Saurabh Kumar. 
+
+This is **not** an open-source project. You may not use, copy, distribute, modify, or sell any part of this software without explicit written permission from the owner.
 
 ---
 
 *Made with ❤️ by Saurabh Kumar*
+
 
 
