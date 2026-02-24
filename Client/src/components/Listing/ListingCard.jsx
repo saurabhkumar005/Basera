@@ -73,7 +73,7 @@ export default function ListingCard({ listing }) {
                     </span>
                 )}
 
-                {/* Slideshow Dots */}
+                {/* Slideshow the listing images */}
                 {hasMultiplePhotos && (
                     <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
                         {listing.listingPhotos.map((_, i) => (
@@ -92,7 +92,7 @@ export default function ListingCard({ listing }) {
                 </button>
             </div>
 
-            {/* Card Body */}
+            {/*  Body */}
             <div className="p-3 flex flex-col gap-1">
                 <h3 className="text-gray-900 font-semibold text-sm leading-tight line-clamp-1">{listing.title}</h3>
                 <p className="text-orange-500 font-bold text-base">

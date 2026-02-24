@@ -1,6 +1,6 @@
 import api from "./axiosInstance.js"
 
-const getListings = async () => {
+const getListings = async()=>{
   try {
     const res = await api.get('/listing/');
     return res.data;
@@ -9,7 +9,7 @@ const getListings = async () => {
     return [];
   }
 };
-export const getListingById = async (id) => {
+export const getListingById = async(id)=>{
   try {
     const res = await api.get(`/listing/${id}`);
     return res.data;
@@ -19,7 +19,7 @@ export const getListingById = async (id) => {
   }
 };
 
-const addListing = async (listing) => {
+const addListing = async(listing)=> {
   try {
     const res = await api.post('/listing/', listing);
     return res;

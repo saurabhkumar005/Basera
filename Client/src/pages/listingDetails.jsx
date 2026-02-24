@@ -74,8 +74,6 @@ export default function ListingDetails() {
         <div className="w-full p-4 md:p-8 bg-slate-100 min-h-screen">
             <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-md overflow-hidden">
                 <div className="flex flex-col lg:flex-row gap-0">
-
-                    {/* Image Section */}
                     <div className="flex flex-col gap-2 lg:w-[58%] p-4">
                         {mainImage
                             ? <img className="w-full h-80 md:h-96 object-cover rounded-xl border border-slate-200"
@@ -92,18 +90,13 @@ export default function ListingDetails() {
                             ))}
                         </div>
                     </div>
-
-                    {/* Details Section */}
                     <div className="flex flex-col gap-4 lg:w-[42%] p-5 lg:border-l border-slate-100">
-                        {/* Title & Price */}
                         <div>
                             <span className="text-xs font-semibold text-white bg-orange-500 rounded-full px-3 py-1">{listing?.listingType}</span>
                             <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mt-2">{listing?.title}</h1>
                             <p className="text-2xl font-semibold text-orange-500 mt-1">₹{listing?.price?.toLocaleString('en-IN')}<span className="text-base font-normal text-gray-400">/month</span></p>
                             <p className="text-gray-500 text-sm mt-1">📍 {listing?.address}, {listing?.city}</p>
                         </div>
-
-                        {/* Action Buttons */}
                         <div className="flex flex-wrap gap-3">
                             <button
                                 onClick={() => chatOnWhatsapp(listing.contactNumber, whatsappMessage)}
@@ -124,7 +117,6 @@ export default function ListingDetails() {
                             </button>
                         </div>
 
-                        {/* Description */}
                         <div className="bg-slate-50 rounded-2xl p-4">
                             <h2 className="text-lg font-semibold text-gray-800 mb-2">Description</h2>
                             <p className="text-sm text-gray-600 leading-relaxed">
@@ -132,7 +124,6 @@ export default function ListingDetails() {
                             </p>
                         </div>
 
-                        {/* Property Details Grid */}
                         <div className="bg-slate-50 rounded-2xl p-4 grid grid-cols-2 gap-3 text-sm text-gray-700">
                             <div><span className="text-gray-400 block text-xs uppercase tracking-wide">Type</span>{listing?.listingType}</div>
                             <div><span className="text-gray-400 block text-xs uppercase tracking-wide">City</span>{listing?.city}</div>
@@ -142,7 +133,6 @@ export default function ListingDetails() {
                             <div><span className="text-gray-400 block text-xs uppercase tracking-wide">WhatsApp</span>{listing?.contactNumber}</div>
                         </div>
 
-                        {/* Amenities & Rules */}
                         <div className="flex gap-3">
                             <div className="flex-1 bg-slate-50 rounded-2xl p-4 text-sm text-gray-700">
                                 <h2 className="text-base font-semibold text-gray-800 mb-2">Amenities</h2>

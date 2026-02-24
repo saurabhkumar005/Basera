@@ -48,7 +48,6 @@ export default function SearchBar() {
 
     return (
         <div ref={containerRef} className='relative w-full max-w-[480px]'>
-            {/* Input Bar */}
             <div className='flex items-center h-12 w-full bg-white border-2 border-transparent rounded-full shadow-md focus-within:border-orange-400 focus-within:shadow-orange-100 focus-within:shadow-lg transition-all duration-200'>
                 <input
                     type="text"

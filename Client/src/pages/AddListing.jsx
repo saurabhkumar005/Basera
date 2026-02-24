@@ -152,7 +152,7 @@ const inputStyle =  "p-3 w-full  rounded-3xl focus:bg-gray-100 border-3 border-o
                 </div>}
                 {posted && <div className='text-center text-green-600 text-lg font-bold p-3'>
                     ✅ Listing Added Successfully: {formData.title}
-                    {error}
+                    
                     ✅
                 </div>}
                 <form onSubmit={handleSubmit} className=' flex flex-col  gap-4 text-lg'>
@@ -248,7 +248,7 @@ const inputStyle =  "p-3 w-full  rounded-3xl focus:bg-gray-100 border-3 border-o
 
                         {/* contact number */}
                         <div className="flex  gap-1 text-lg flex-col w-full">
-                            <label htmlFor="contactNumber" className='font-bold  text-gray-700' >Contact/Whatsapp Number </label>
+                            <label htmlFor="contactNumber" className='font-bold  text-gray-700' >Contact/ Whatsapp Number </label>
                             <div className={` ${inputStyle} flex `}>
                                <Phone className='mr-2'/>
                             <input
