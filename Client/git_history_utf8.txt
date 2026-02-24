@@ -1,0 +1,27 @@
+﻿commit ecd779a76717ab7ce59b42234ee55c79e41d4391
+Author: saurabh kumar <saurabhkaswa04@gmail.com>
+Date:   Mon Jan 12 22:52:23 2026 +0530
+
+    complete login and register backend login with full authentication rules, form validation, proper checking from both side, client and server. maked public and protected routes component for added security. Used axios interceptors, jwtDecode , jwt for security purpose.
+
+diff --git a/Client/src/components/Layout/SearchBar.jsx b/Client/src/components/Layout/SearchBar.jsx
+new file mode 100644
+index 0000000..ed9e47f
+--- /dev/null
++++ b/Client/src/components/Layout/SearchBar.jsx
+@@ -0,0 +1,14 @@
++import {Search} from 'lucide-react'
++export default function searchBar(){
++    // USEs Deatils:  
++    // used on homepage front image search bar and listing page
++    return (
++        <div className=' h-12 w-[350px] md:w-[400px] border border-orange-400 rounded-full flex items-center bg-white  '>
++                    <input type="text" className='w-full h-full outline-none px-5 bg-transparent text-gray-800 ' 
++                    placeholder='Search PG, Rooms, Hostels...'/>
++                    <button className='p-3 rounded-r-4xl bg-orange-400  ' aria-label='search home'>
++                        <Search/>
++                    </button>
++                </div>
++    )
++}
+\ No newline at end of file

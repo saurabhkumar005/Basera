@@ -2,37 +2,59 @@ import ListingCard from "../components/Listing/ListingCard"
 import SearchBar from "../components/Layout/SearchBar.jsx"
 import getListing from '../api/ListingData.js';
 import { useState, useEffect } from "react";
+import ListingCardSkeleton from "../components/UI/ListingCardSkeleton.jsx";
 
-export default function Listing(){
-    const [loading, setLoading] = useState(false);
-    const [listingData, setListingData]= useState([]);
-    useEffect(()=>{
-        const fetchListings = async()=>{
+export default function Listing() {
+    const [loading, setLoading] = useState(true);
+    const [listingData, setListingData] = useState([]);
+
+    useEffect(() => {
+        const fetchListings = async () => {
             setLoading(true);
-            try{
-            const data = await getListing();
-            const modifiedData = data.reverse();
-            setListingData([ ...modifiedData, ...listingData]);
-            } catch(err){
-                console.error("Failed to fetch listing data from server: "+err);
-            }finally{setLoading(false);}
+            try {
+                const data = await getListing();
+                setListingData(data.reverse());
+            } catch (err) {
+                console.error("Failed to fetch listings:", err);
+            } finally {
+                setLoading(false);
+            }
         }
         fetchListings();
-    },[]);
+    }, []);
 
-    if(loading)return <div className="h-180 w-full flex justify-center items-center text-orange-400 text-2xl ">Fetching Listings in less than a minutes...</div>
-      if(listingData.length==0)return <div className="h-180 w-full flex justify-center items-center text-orange-400 text-2xl ">No Listing added yet!</div>
     return (
-       <div>
-        <div className="bg-orange-100 w-[100vw] h-28 flex justify-center items-center">
-        <SearchBar/>
+        <div className="min-h-screen bg-slate-50">
+            {/* Search Banner */}
+            <div className="bg-white border-b border-slate-100 shadow-sm w-full py-5 flex justify-center px-4">
+                <SearchBar />
+            </div>
+
+            {/* Listings Grid */}
+            <div className="max-w-screen-xl mx-auto px-4 py-8">
+                {loading ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+                        {Array.from({ length: 10 }).map((_, i) => (
+                            <ListingCardSkeleton key={i} />
+                        ))}
+                    </div>
+                ) : listingData.length === 0 ? (
+                    <div className="h-80 flex flex-col items-center justify-center text-gray-400 gap-3">
+                        <span className="text-5xl">🏠</span>
+                        <p className="text-lg font-medium">No listings found</p>
+                        <p className="text-sm">Be the first to add a listing!</p>
+                    </div>
+                ) : (
+                    <>
+                        <p className="text-sm text-gray-400 mb-5">{listingData.length} properties found</p>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+                            {listingData.map((item) => (
+                                <ListingCard listing={item} key={item._id || Math.random()} />
+                            ))}
+                        </div>
+                    </>
+                )}
+            </div>
         </div>
-        <div className=" w-full h-full  gap-5 p-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-        {listingData.map((item)=>{
-            return <ListingCard listing={item} key={item._id? item._id : Math.random()*1000}/>
-        })}
-        </div>
-        {loading && <div className="align-center text-gray-600"> Loading...</div>}
-       </div>
     )
 }

@@ -8,13 +8,13 @@ export default function FeaturedListings() {
 
     useEffect(() => {
        
-            const getListingFromDB = async () => {
-                setLoading(true);
-                const data = await getListings();
+        const getListingFromDB = async () => {
+            setLoading(true);
+            const data = await getListings();
                 const res = data.reverse().slice(0,data.length<10? data.length : 10);
                 setListing([...res,...listings]);
-                setLoading(false);
-            }
+            setLoading(false);
+        }
        
         getListingFromDB();
     }, []);
@@ -32,9 +32,9 @@ export default function FeaturedListings() {
                 {listings.slice(0,10).map((listing, idx) => (
                     <div key={listing._id} className="min-w-[250px] ">
                         <ListingCard key={listing._id} listing={listing} />
-                    </div>
-                ))}
-            </div>
+                        </div>
+                    ))}
+                </div>
             }
 
         </div>

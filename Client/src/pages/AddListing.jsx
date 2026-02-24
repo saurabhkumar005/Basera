@@ -248,7 +248,7 @@ const inputStyle =  "p-3 w-full  rounded-3xl focus:bg-gray-100 border-3 border-o
 
                         {/* contact number */}
                         <div className="flex  gap-1 text-lg flex-col w-full">
-                            <label htmlFor="contactNumber" className='font-bold  text-gray-700' >Contact Number (Preferably Whatsapp) </label>
+                            <label htmlFor="contactNumber" className='font-bold  text-gray-700' >Contact/Whatsapp Number </label>
                             <div className={` ${inputStyle} flex `}>
                                <Phone className='mr-2'/>
                             <input
