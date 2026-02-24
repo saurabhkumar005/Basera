@@ -133,3 +133,17 @@ export const countMyListing = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 }
+
+export const searchListings = async (req, res) => {
+    try {
+        const { q } = req.query;
+        if (!q || q.trim() === '') return res.status(200).json([]);
+        const regex = new RegExp(q.trim(), 'i');
+        const results = await Listing.find({
+            $or: [{ title: regex }, { city: regex }, { address: regex }]
+        }).limit(5).lean();
+        res.status(200).json(results);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
