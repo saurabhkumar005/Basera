@@ -8,4 +8,3 @@ export default function OrangeButton({placeholder, type}){
         </button>
     )
 }
-// used in: login, register page

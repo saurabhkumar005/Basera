@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-//this middleware will run before all API where we need tonallow only valid logined call/user
+//this middleware will run before all API where we need to allow only valid logined call/user
 
 //no need of async and await as this middleware do all operation sychronusly
 export default  function verifyToken(req, res, next){

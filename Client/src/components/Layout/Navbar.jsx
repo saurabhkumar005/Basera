@@ -43,7 +43,7 @@ export default function Navbar() {
     const closeMenu = () => setIsMenuOpen(false);
 
     return (
-        <header ref={menuRef} className="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm">
+        <header ref={menuRef} className="sticky top-0 z-50 bg-[#FAFAFA] backdrop-blur-md shadow-sm">
             <div className="px-5 h-20 flex justify-between items-center max-w-screen-2xl mx-auto">
 
                 <NavLink className="max-w-[200px] h-16 block" to="/" onClick={closeMenu}>

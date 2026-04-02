@@ -25,12 +25,11 @@ export default function Listing() {
 
     return (
         <div className="min-h-screen bg-slate-50">
-            {/* Search Banner */}
             <div className="bg-white border-b border-slate-100 shadow-sm w-full py-5 flex justify-center px-4">
                 <SearchBar />
             </div>
 
-            {/* Listings Grid */}
+            {/* Listings */}
             <div className="max-w-screen-xl mx-auto px-4 py-8">
                 {loading ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">

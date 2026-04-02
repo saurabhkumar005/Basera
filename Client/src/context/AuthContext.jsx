@@ -5,11 +5,11 @@ import { addFavourite, removeFavourite } from '../api/UserData';
 
 const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children })=>{
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const getUserDetails = async () => {
+    const getUserDetails = async()=>{
         const token = getJWTToken();
         try {
             if (token) {
@@ -33,13 +33,12 @@ export const AuthProvider = ({ children }) => {
         (user?.favourites || []).map(id => id?.toString())
     );
 
-    const toggleFavourite = useCallback(async (listingId) => {
+    const toggleFavourite = useCallback(async (listingId)=>{
         if (!user) return;
         const isFav = favouriteIds.has(listingId.toString());
         setUser(prev => ({
             ...prev,
-            favourites: isFav
-                ? prev.favourites.filter(id => id?.toString() !== listingId.toString())
+            favourites: isFav ? prev.favourites.filter(id => id?.toString() !== listingId.toString())
                 : [...(prev.favourites || []), listingId]
         }));
         try {

@@ -39,13 +39,10 @@ export default function Footer() {
                 <div>
                     <h3 className="text-white font-semibold text-base mb-4">Connect</h3>
                     <div className="flex gap-4">
-                        <a href="#" aria-label="GitHub" className="p-2 rounded-full bg-gray-800 hover:bg-orange-500 transition-colors">
+                        <a href="https://github.com/saurabhkumar005" aria-label="GitHub" className="p-2 rounded-full bg-gray-800 hover:bg-orange-500 transition-colors">
                             <Github size={16} />
                         </a>
-                        <a href="#" aria-label="Instagram" className="p-2 rounded-full bg-gray-800 hover:bg-orange-500 transition-colors">
-                            <Instagram size={16} />
-                        </a>
-                         <a href="#" aria-label="Linkedin" className="p-2 rounded-full bg-gray-800 hover:bg-orange-500 transition-colors">
+                         <a href="https://www.linkedin.com/in/saurabhkumar005/" aria-label="Linkedin" className="p-2 rounded-full bg-gray-800 hover:bg-orange-500 transition-colors">
                             <Linkedin size={16} />
                         </a>
                     </div>
